@@ -155,15 +155,15 @@ if cls_ild and not(seg_ild):
 
 elif seg_ild and not (cls_ild):
     if args.unet:
-        train_type=os.path.join(args.dataset,'results-seg','Unet')
+        train_type=os.path.join(args.dataset+'results-seg','Unet')
     else:
-        train_type=os.path.join(args.dataset,'results-seg','Unet3Plus')
+        train_type=os.path.join(args.dataset+'results-seg','Unet3Plus')
 
 else:
     if args.unet:
-        train_type=os.path.join(args.dataset,'results-seg-cls','Unet')
+        train_type=os.path.join(args.dataset+'results-seg-cls','Unet')
     else:
-        train_type=os.path.join(args.dataset,'results-seg-cls','Unet3Plus')
+        train_type=os.path.join(args.dataset+'results-seg-cls','Unet3Plus')
 
 folder_path =os.path.join(current_working_directory,train_type,args.backbone_class,name,formatted_datetime)
 accuracy_file_path =os.path.join(folder_path,'model_accuracies_iou.txt')
