@@ -87,7 +87,7 @@ parser.add_argument('--att_from', default=3,type=int, help='Applying mean attent
 parser.add_argument('--model_path', type=str, help='The pretrained model path')
 parser.add_argument('--fsds', action='store_true', help='Using Full-scale Deep Supervision')
 
-parser.add_argument('--local_train', action='store_true', help='local_training')
+parser.add_argument('--local_train', default= 0 , type=int, help='local_training')
 
 
 

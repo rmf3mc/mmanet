@@ -32,6 +32,7 @@ else
 fi
 
 echo "Local training: $local_train"
+echo "Training_MC: $Training_MC"
 
 
 # Define the base command
