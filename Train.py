@@ -72,7 +72,7 @@ parser.add_argument('--backbone_class', type=str, default='densenet161', choices
 parser.add_argument('--dataset', type=str, default='soybean_2_1', choices=['soybean_2_1', 'btf', 'hainan_leaf'], help='resume from checkpoint')
 parser.add_argument('--data_dir', type=str, default='./data')
 parser.add_argument('--seg_size', default=448, type=int, help='Segmentation Dimension')
-parser.add_argument('--num_classes', default=10, type=int, help='Number of Classes')
+parser.add_argument('--num_classes', default=200, type=int, help='Number of Classes')
 
 parser.add_argument('--dataparallel', action='store_true', help='Enable Data Parallel')
 parser.add_argument('--seg_ild', action='store_true', help='Enable Segmentation Training')
