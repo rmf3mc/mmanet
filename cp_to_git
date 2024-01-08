@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Move Train.py from Downloads to the current directory
+mv ~/Downloads/Train.py .
+
+# Add all changes to git
+git add .
+
+# Commit the changes
+git commit -m "first commit"
+
+# Push the changes to the main branch of the origin remote
+git push -u origin main
