@@ -32,6 +32,12 @@ from utils import *
 print('**End of Importing**')
 
 
+# In[2]:
+
+
+from torchvision.ops import DeformConv2d
+
+
 # In[ ]:
 
 
@@ -93,6 +99,9 @@ parser.add_argument('--local_train', default= 0 , type=int, help='local_training
 
 # Use parse_known_args()
 args, unknown = parser.parse_known_args()
+
+print('args.local_train',args.local_train)
+
 
 if args.model_path is not None:
     args.batch_size=8

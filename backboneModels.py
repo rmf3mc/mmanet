@@ -15,6 +15,7 @@ import torchvision.transforms as transforms
 
 from unet3 import *
 from utils import *
+from torchvision.ops import DeformConv2d
 
 
 
@@ -83,22 +84,24 @@ class MMANET(nn.Module):
             
             shape=no_outputs_ch[-1]
 
-            self.center=nn.Conv2d(shape, shape, kernel_size=3, padding=1).to('cuda')
+            self.center=nn.Conv2d(int(shape*1.25+2), shape, kernel_size=3, padding=1).to('cuda')
 
             self.decoder_layers=nn.ModuleDict()
             
             if self.Unet:
                 for i in range(1,6):
-                    self.decoder_layers[str(i)]=UNetDecoderLayerModule(lvl=i,no_channels=no_outputs_ch,no_classes=self.no_classes)
+                    self.decoder_layers[str(i)]=UNetDecoderLayerModule2(lvl=i,no_channels=no_outputs_ch,no_classes=self.no_classes,att_fromm=self.att_from)
+                    #self.decoder_layers[str(i)]=UNetDecoderLayerModule(lvl=i,no_channels=no_outputs_ch,no_classes=self.no_classes)
             else:
                 for i in range(1,6):
                     self.decoder_layers[str(i)]=UNet3PlusDecoderLayerModule(lvl=i,no_channels=no_outputs_ch,no_classes=self.no_classes)
 
 
             self.atten_layers= nn.ModuleDict()
+            self.offset_layers=nn.ModuleDict()
             for i in range(1,6):
-                self.atten_layers[str(i)]=nn.Conv2d(2,1,kernel_size=1, bias=False)
-
+                self.atten_layers[str(i)]= DeformConv2d(in_channels=no_outputs_ch[i-1], out_channels=int(no_outputs_ch[i-1]*0.25), kernel_size=3, padding=1) #nn.Conv2d(2,1,kernel_size=1, bias=False)
+                self.offset_layers[str(i)]= nn.Conv2d(in_channels=no_outputs_ch[i-1], out_channels=18, kernel_size=3, padding=1)
 
    
             
@@ -201,10 +204,13 @@ class MMANET(nn.Module):
             else:
                 x = self.Encoders[str(i)](x)
 
-                fg_att=self.atten_layers[str(i)](torch.cat((torch.mean(x,dim=1).unsqueeze(1),torch.max(x,dim=1)[0].unsqueeze(1)),dim=1))
-                fg_att=torch.sigmoid(fg_att)
-                features=self.getAttFeats(fg_att,x)
-                
+                #fg_att=self.atten_layers[str(i)](torch.cat((torch.mean(x,dim=1).unsqueeze(1),torch.max(x,dim=1)[0].unsqueeze(1)),dim=1))
+                #fg_att=torch.sigmoid(fg_att)
+                #features=self.getAttFeats(fg_att,x)
+                fg_att=torch.sigmoid(torch.cat((torch.mean(x,dim=1).unsqueeze(1),torch.max(x,dim=1)[0].unsqueeze(1)),dim=1))
+                offset=self.offset_layers[str(i)](x)
+                deform=self.atten_layers[str(i)](x,offset)
+                features=torch.cat((x,fg_att,deform),dim=1)
                 Encoder_outputs.append(features)
     
 

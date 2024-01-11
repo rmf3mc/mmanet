@@ -143,8 +143,60 @@ class UNetDecoderLayerModule(nn.Module):
         concat=torch.cat([Enc_outputs[lvl-1], next_decoder_layer_output], 1)
         out=self.layers[str(1)](concat)
         return out
+    
+
+
+class UNetDecoderLayerModule2(nn.Module):
+    def __init__(self, lvl,no_channels,no_classes=1,att_fromm=1):
+        super(UNetDecoderLayerModule2, self).__init__()
+        self.layers= nn.ModuleDict()
+        in_channels=no_channels[lvl-1]#*2
+        if lvl==1:
+            out_channels=no_channels[lvl-1]
+        else:
+            out_channels=no_channels[lvl-2]
+            
+        print('out_channels',out_channels)
+        if lvl<att_fromm:
+            if lvl !=1:
+                self.layers[str(1)]=nn.Sequential(
+                                    nn.Conv2d(in_channels=in_channels+in_channels, out_channels=out_channels, kernel_size=3, padding=1),
+                                    nn.ReLU(inplace=True),
+                                    nn.Conv2d(out_channels, out_channels=out_channels, kernel_size=3, padding=1),
+                                    nn.ReLU(inplace=True),
+                                    nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
+                                    )
+            else:
+                self.layers[str(1)]=nn.Sequential(
+                            nn.Conv2d(in_channels=in_channels+in_channels, out_channels=out_channels, kernel_size=3, padding=1),
+                            nn.ReLU(inplace=True),
+                            nn.Conv2d(out_channels, out_channels=out_channels, kernel_size=3, padding=1),
+                            nn.ReLU(inplace=True),
+                            nn.Conv2d(out_channels, out_channels=no_classes, kernel_size=3, padding=1),
+                            )
+        else:
+            if lvl !=1:
+                self.layers[str(1)]=nn.Sequential(
+                                    nn.Conv2d(in_channels=in_channels+int(in_channels*1.25)+2, out_channels=out_channels, kernel_size=3, padding=1),
+                                    nn.ReLU(inplace=True),
+                                    nn.Conv2d(out_channels, out_channels=out_channels, kernel_size=3, padding=1),
+                                    nn.ReLU(inplace=True),
+                                    nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
+                                    )
+            else:
+                self.layers[str(1)]=nn.Sequential(
+                            nn.Conv2d(in_channels=in_channels+int(in_channels*1.25)+2, out_channels=out_channels, kernel_size=3, padding=1),
+                            nn.ReLU(inplace=True),
+                            nn.Conv2d(out_channels, out_channels=out_channels, kernel_size=3, padding=1),
+                            nn.ReLU(inplace=True),
+                            nn.Conv2d(out_channels, out_channels=no_classes, kernel_size=3, padding=1),
+                            )
+            
         
-       
+    def forward (self,Enc_outputs,next_decoder_layer_output,lvl):
+        concat=torch.cat([Enc_outputs[lvl-1], next_decoder_layer_output], 1)
+        out=self.layers[str(1)](concat)
+        return out
         
 
 
