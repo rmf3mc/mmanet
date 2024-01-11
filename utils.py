@@ -20,7 +20,7 @@ def get_folder_path(args):
         if args.fsds:
             path_parts.append('FSDS')
         
-        path_parts.append(str(args.att_from))
+        path_parts.append(str(args.deform_expan))
         
     
     path_parts.append(args.backbone_class)

@@ -40,62 +40,72 @@ BASE_CMD="python -u Train.py"
 case $ARG in
 
     1)
-        $BASE_CMD --mmanet            --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model  --att_from 1 --unet $Training_MC
+        $BASE_CMD --mmanet            --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model  --deform_expan 2 --unet $Training_MC
         ;;
 
  
     2)
-        $BASE_CMD --mmanet  --fsds      --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --att_from 1 --unet $Training_MC
+        $BASE_CMD --mmanet  --fsds      --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 2 --unet $Training_MC
         ;;
 
 
     3)
-        $BASE_CMD --mmanet              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --att_from 2 --unet $Training_MC
+        $BASE_CMD --mmanet              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 2.25 --unet $Training_MC
         ;;
 
  
     4)
-        $BASE_CMD --mmanet  --fsds      --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --att_from 2 --unet $Training_MC
+        $BASE_CMD --mmanet  --fsds      --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 2.25 --unet $Training_MC
         ;;
 
 
     5)
-        $BASE_CMD --mmanet              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --att_from 3 --unet $Training_MC
+        $BASE_CMD --mmanet              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 2.5 --unet $Training_MC
         ;;
 
  
     6)
-        $BASE_CMD --mmanet  --fsds      --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --att_from 3 --unet $Training_MC
+        $BASE_CMD --mmanet  --fsds      --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 2.5 --unet $Training_MC
         ;;
 
 
     7)
-        $BASE_CMD --mmanet              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --att_from 4 --unet $Training_MC
+        $BASE_CMD --mmanet              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 2.75 --unet $Training_MC
         ;;
 
  
     8)
-        $BASE_CMD --mmanet  --fsds      --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --att_from 4 --unet $Training_MC
+        $BASE_CMD --mmanet  --fsds      --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 2.75 --unet $Training_MC
         ;;
 
 
     9)
-        $BASE_CMD --mmanet              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --att_from 5 --unet $Training_MC
+        $BASE_CMD --mmanet              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 3 --unet $Training_MC
         ;;
 
  
     10)
-        $BASE_CMD --mmanet  --fsds      --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --att_from 5 --unet $Training_MC
+        $BASE_CMD --mmanet  --fsds      --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 3 --unet $Training_MC
         ;;
 
 
     11)
-        $BASE_CMD --mmanet              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --att_from 6 --unet $Training_MC
+        $BASE_CMD --mmanet              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 3.25 --unet $Training_MC
         ;;
 
  
     12)
-        $BASE_CMD --mmanet  --fsds      --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --att_from 6 --unet $Training_MC
+        $BASE_CMD --mmanet  --fsds      --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 3.25 --unet $Training_MC
+        ;;
+
+    
+    13)
+        $BASE_CMD --mmanet              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 4 --unet $Training_MC
+        ;;
+
+ 
+    14)
+        $BASE_CMD --mmanet              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 5 --unet $Training_MC
         ;;
 
     *)

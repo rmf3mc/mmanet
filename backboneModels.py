@@ -21,7 +21,7 @@ from torchvision.ops import DeformConv2d
 
 
 class MMANET(nn.Module):
-    def __init__ (self, backbone_name, num_classes,MANet=False,MMANet=True,mask_guided=False,seg_included=None,freeze_all=False,no_sig_classes=1,Unet=True,att_from=3):
+    def __init__ (self, backbone_name, num_classes,MANet=False,MMANet=True,mask_guided=False,seg_included=None,freeze_all=False,no_sig_classes=1,Unet=True,deform_expan=1):
         super(MMANET, self).__init__()
         
         self.MANet=MANet
@@ -34,7 +34,7 @@ class MMANET(nn.Module):
         self.no_classes=no_sig_classes
         self.freeze_all=freeze_all
 
-        self.att_from=att_from
+        self.deform_expan=deform_expan
         
         print('self.seg_included:',self.seg_included)
         
@@ -84,13 +84,13 @@ class MMANET(nn.Module):
             
             shape=no_outputs_ch[-1]
 
-            self.center=nn.Conv2d(int(shape*1.25+2), shape, kernel_size=3, padding=1).to('cuda')
+            self.center=nn.Conv2d(int(shape*self.deform_expan+2), shape, kernel_size=3, padding=1).to('cuda')
 
             self.decoder_layers=nn.ModuleDict()
             
             if self.Unet:
                 for i in range(1,6):
-                    self.decoder_layers[str(i)]=UNetDecoderLayerModule2(lvl=i,no_channels=no_outputs_ch,no_classes=self.no_classes,att_fromm=self.att_from)
+                    self.decoder_layers[str(i)]=UNetDecoderLayerModule2(lvl=i,no_channels=no_outputs_ch,no_classes=self.no_classes,deform_expan=self.deform_expan)
                     #self.decoder_layers[str(i)]=UNetDecoderLayerModule(lvl=i,no_channels=no_outputs_ch,no_classes=self.no_classes)
             else:
                 for i in range(1,6):
@@ -100,7 +100,7 @@ class MMANET(nn.Module):
             self.atten_layers= nn.ModuleDict()
             self.offset_layers=nn.ModuleDict()
             for i in range(1,6):
-                self.atten_layers[str(i)]= DeformConv2d(in_channels=no_outputs_ch[i-1], out_channels=int(no_outputs_ch[i-1]*0.25), kernel_size=3, padding=1) #nn.Conv2d(2,1,kernel_size=1, bias=False)
+                self.atten_layers[str(i)]= DeformConv2d(in_channels=no_outputs_ch[i-1], out_channels=int(no_outputs_ch[i-1]*(self.deform_expan-1)), kernel_size=3, padding=1) #nn.Conv2d(2,1,kernel_size=1, bias=False)
                 self.offset_layers[str(i)]= nn.Conv2d(in_channels=no_outputs_ch[i-1], out_channels=18, kernel_size=3, padding=1)
 
    
@@ -183,7 +183,7 @@ class MMANET(nn.Module):
             
             
         if self.seg_included:
-            Encoder_outputs = self.get_encoder_ops(x,self.att_from)
+            Encoder_outputs = self.get_encoder_ops(x)
             Encoder_5=Encoder_outputs[4]
             Conv_Encoder_5=self.center(Encoder_5)
             outputs['Final_seg'], outputs['decoder_layer_2'], outputs['decoder_layer_3'], outputs['decoder_layer_4'], outputs['decoder_layer_5']=get_segmentation(self.decoder_layers,Encoder_outputs,Conv_Encoder_5)
@@ -193,25 +193,20 @@ class MMANET(nn.Module):
         return outputs
 
 
-    def get_encoder_ops(self,x,att_from=3):
+    def get_encoder_ops(self,x):
         Encoder_outputs=[]
 
         for i in range(1,6):
-            if i<att_from:
-                x = self.Encoders[str(i)](x)
-                Encoder_outputs.append(x)
-            
-            else:
-                x = self.Encoders[str(i)](x)
+            x = self.Encoders[str(i)](x)
 
-                #fg_att=self.atten_layers[str(i)](torch.cat((torch.mean(x,dim=1).unsqueeze(1),torch.max(x,dim=1)[0].unsqueeze(1)),dim=1))
-                #fg_att=torch.sigmoid(fg_att)
-                #features=self.getAttFeats(fg_att,x)
-                fg_att=torch.sigmoid(torch.cat((torch.mean(x,dim=1).unsqueeze(1),torch.max(x,dim=1)[0].unsqueeze(1)),dim=1))
-                offset=self.offset_layers[str(i)](x)
-                deform=self.atten_layers[str(i)](x,offset)
-                features=torch.cat((x,fg_att,deform),dim=1)
-                Encoder_outputs.append(features)
+            #fg_att=self.atten_layers[str(i)](torch.cat((torch.mean(x,dim=1).unsqueeze(1),torch.max(x,dim=1)[0].unsqueeze(1)),dim=1))
+            #fg_att=torch.sigmoid(fg_att)
+            #features=self.getAttFeats(fg_att,x)
+            fg_att=torch.sigmoid(torch.cat((torch.mean(x,dim=1).unsqueeze(1),torch.max(x,dim=1)[0].unsqueeze(1)),dim=1))
+            offset=self.offset_layers[str(i)](x)
+            deform=self.atten_layers[str(i)](x,offset)
+            features=torch.cat((x,fg_att,deform),dim=1)
+            Encoder_outputs.append(features)
     
 
         return Encoder_outputs

@@ -88,7 +88,7 @@ parser.add_argument('--manet', action='store_true', help='Using the MANet')
 parser.add_argument('--mmanet', action='store_true', help='Using the MMANet')
 parser.add_argument('--maskguided', action='store_true',help='Guiding the Attention Mask')
 parser.add_argument('--unet', action='store_true', help='Unet based Segmentation, Unet3+ otherwise')
-parser.add_argument('--att_from', default=3,type=int, help='Applying mean attention to Encoder outputs')
+parser.add_argument('--deform_expan', default=3,type=float, help='Applying mean attention to Encoder outputs')
 
 parser.add_argument('--model_path', type=str, help='The pretrained model path')
 parser.add_argument('--fsds', action='store_true', help='Using Full-scale Deep Supervision')
@@ -164,15 +164,15 @@ if cls_ild and not(seg_ild):
 
 elif seg_ild and not (cls_ild):
     if args.unet:
-        train_type=os.path.join(args.dataset+'-results-seg','Unet')
+        train_type=os.path.join(args.dataset+'-results-seg','Unet'+str(args.deform_expan))
     else:
-        train_type=os.path.join(args.dataset+'-results-seg','Unet3Plus')
+        train_type=os.path.join(args.dataset+'-results-seg','Unet3Plus'+str(args.deform_expan))
 
 else:
     if args.unet:
-        train_type=os.path.join(args.dataset+'-results-seg-cls','Unet')
+        train_type=os.path.join(args.dataset+'-results-seg-cls','Unet'+str(args.deform_expan))
     else:
-        train_type=os.path.join(args.dataset+'-results-seg-cls','Unet3Plus')
+        train_type=os.path.join(args.dataset+'-results-seg-cls','Unet3Plus'+str(args.deform_expan))
 
 folder_path =os.path.join(current_working_directory,train_type,args.backbone_class,name,formatted_datetime)
 accuracy_file_path =os.path.join(folder_path,'model_accuracies_iou.txt')
@@ -205,7 +205,7 @@ print('cls_included',cls_ild)
 print('freeze_all',freeze_all)
 print('Full-scale Deep Supervision',args.fsds)
 print('Unet',args.unet)
-print('Attention from',args.att_from)
+print('deform_expan',args.deform_expan)
 
 
 # In[ ]:
@@ -228,7 +228,7 @@ testloader = DataLoader(test, batch_size=batchsize, shuffle=False)
 # In[ ]:
 
 
-model=MMANET(backbone_name=model_name,num_classes=num_classes,MANet=MANet,MMANet=MMANet,mask_guided=mask_guided,seg_included=seg_ild,freeze_all=freeze_all,Unet=args.unet,att_from=args.att_from)
+model=MMANET(backbone_name=model_name,num_classes=num_classes,MANet=MANet,MMANet=MMANet,mask_guided=mask_guided,seg_included=seg_ild,freeze_all=freeze_all,Unet=args.unet,deform_expan=args.deform_expan)
 
 
 if args.model_path is not None:
