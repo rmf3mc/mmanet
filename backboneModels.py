@@ -118,7 +118,7 @@ class MMANET(nn.Module):
             if cnt < th:
                 for name2, params in child.named_parameters():
                     params.requires_grad = False
-                    print(name, name2, cnt,params.requires_grad)            
+                    #print(name, name2, cnt,params.requires_grad)            
         
         if self.freeze_all:
             for param in self.features.parameters():

@@ -1,0 +1,248 @@
+2024-01-12 14:25:16,858 INFO    StreamThr :2774602 [internal.py:wandb_internal():86] W&B internal server running at pid: 2774602, started at: 2024-01-12 14:25:16.857980
+2024-01-12 14:25:16,859 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status
+2024-01-12 14:25:16,861 INFO    WriterThread:2774602 [datastore.py:open_for_write():87] open: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/run-8nq8cogv.wandb
+2024-01-12 14:25:16,861 DEBUG   SenderThread:2774602 [sender.py:send():382] send: header
+2024-01-12 14:25:16,863 DEBUG   SenderThread:2774602 [sender.py:send():382] send: run
+2024-01-12 14:25:17,060 INFO    SenderThread:2774602 [dir_watcher.py:__init__():211] watching files in: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files
+2024-01-12 14:25:17,060 INFO    SenderThread:2774602 [sender.py:_start_run_threads():1136] run started: 8nq8cogv with start time 1705091116.857834
+2024-01-12 14:25:17,064 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: check_version
+2024-01-12 14:25:17,064 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: check_version
+2024-01-12 14:25:17,155 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: run_start
+2024-01-12 14:25:17,163 DEBUG   HandlerThread:2774602 [system_info.py:__init__():27] System info init
+2024-01-12 14:25:17,163 DEBUG   HandlerThread:2774602 [system_info.py:__init__():42] System info init done
+2024-01-12 14:25:17,163 INFO    HandlerThread:2774602 [system_monitor.py:start():194] Starting system monitor
+2024-01-12 14:25:17,163 INFO    SystemMonitor:2774602 [system_monitor.py:_start():158] Starting system asset monitoring threads
+2024-01-12 14:25:17,163 INFO    HandlerThread:2774602 [system_monitor.py:probe():214] Collecting system info
+2024-01-12 14:25:17,164 INFO    SystemMonitor:2774602 [interfaces.py:start():190] Started cpu monitoring
+2024-01-12 14:25:17,164 INFO    SystemMonitor:2774602 [interfaces.py:start():190] Started disk monitoring
+2024-01-12 14:25:17,164 INFO    SystemMonitor:2774602 [interfaces.py:start():190] Started gpu monitoring
+2024-01-12 14:25:17,165 INFO    SystemMonitor:2774602 [interfaces.py:start():190] Started memory monitoring
+2024-01-12 14:25:17,166 INFO    SystemMonitor:2774602 [interfaces.py:start():190] Started network monitoring
+2024-01-12 14:25:17,219 DEBUG   HandlerThread:2774602 [system_info.py:probe():151] Probing system
+2024-01-12 14:25:17,220 DEBUG   HandlerThread:2774602 [system_info.py:_probe_git():136] Probing git
+2024-01-12 14:25:17,223 DEBUG   HandlerThread:2774602 [system_info.py:_probe_git():144] Probing git done
+2024-01-12 14:25:17,223 DEBUG   HandlerThread:2774602 [system_info.py:probe():199] Probing system done
+2024-01-12 14:25:17,223 DEBUG   HandlerThread:2774602 [system_monitor.py:probe():223] {'os': 'Linux-5.15.0-73-generic-x86_64-with-glibc2.35', 'python': '3.10.5', 'heartbeatAt': '2024-01-12T20:25:17.219924', 'startedAt': '2024-01-12T20:25:16.854769', 'docker': None, 'cuda': None, 'args': ('--mmanet', '--max_epoch', '1', '--seg_ild', '--freeze_all', '--dataparallel', '--data_dir', '/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches_AMP/data', '--backbone_class', 'densenet161', '--model_path', '/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches_AMP/checkpoint/file.pth', '--deform_expan', '2.00', '--unet', '--local_train', '1'), 'state': 'running', 'program': '/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/Train.py', 'codePathLocal': 'Train.py', 'codePath': 'Train.py', 'git': {'remote': 'git@github.com:rmf3mc/mmanet.git', 'commit': '0bd0c3aebca23669237e45e3822dd8542cad3cd0'}, 'email': 'ramytrm@gmail.com', 'root': '/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches', 'host': 'pupil', 'username': 'rmf3mc', 'executable': '/home/pupil/rmf3mc/.conda/envs/UnetCRF2/bin/python', 'cpu_count': 16, 'cpu_count_logical': 24, 'cpu_freq': {'current': 3100.97825, 'min': 800.0, 'max': 4716.666666666667}, 'cpu_freq_per_core': [{'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 856.146, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 4231.977, 'min': 800.0, 'max': 5200.0}, {'current': 3200.0, 'min': 800.0, 'max': 5200.0}, {'current': 3200.0, 'min': 800.0, 'max': 5200.0}, {'current': 3200.0, 'min': 800.0, 'max': 5200.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}], 'disk': {'/': {'total': 878.0525245666504, 'used': 177.42881774902344}}, 'gpu': 'NVIDIA GeForce RTX 3090', 'gpu_count': 1, 'gpu_devices': [{'name': 'NVIDIA GeForce RTX 3090', 'memory_total': 25769803776}], 'memory': {'total': 31.04662322998047}}
+2024-01-12 14:25:17,223 INFO    HandlerThread:2774602 [system_monitor.py:probe():224] Finished collecting system info
+2024-01-12 14:25:17,223 INFO    HandlerThread:2774602 [system_monitor.py:probe():227] Publishing system info
+2024-01-12 14:25:17,223 DEBUG   HandlerThread:2774602 [system_info.py:_save_conda():208] Saving list of conda packages installed into the current environment
+2024-01-12 14:25:18,061 INFO    Thread-12 :2774602 [dir_watcher.py:_on_file_created():271] file/dir created: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/conda-environment.yaml
+2024-01-12 14:25:19,224 DEBUG   HandlerThread:2774602 [system_info.py:_save_conda():220] Saving conda packages done
+2024-01-12 14:25:19,224 INFO    HandlerThread:2774602 [system_monitor.py:probe():229] Finished publishing system info
+2024-01-12 14:25:19,227 DEBUG   SenderThread:2774602 [sender.py:send():382] send: files
+2024-01-12 14:25:19,227 INFO    SenderThread:2774602 [sender.py:_save_file():1403] saving file wandb-metadata.json with policy now
+2024-01-12 14:25:19,229 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: python_packages
+2024-01-12 14:25:19,230 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: python_packages
+2024-01-12 14:25:19,231 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-12 14:25:19,231 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: stop_status
+2024-01-12 14:25:19,232 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-12 14:25:19,364 DEBUG   SenderThread:2774602 [sender.py:send():382] send: telemetry
+2024-01-12 14:25:19,602 INFO    wandb-upload_0:2774602 [upload_job.py:push():131] Uploaded file /tmp/tmpcoahmaxwwandb/ltqnzunj-wandb-metadata.json
+2024-01-12 14:25:20,061 INFO    Thread-12 :2774602 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/conda-environment.yaml
+2024-01-12 14:25:20,061 INFO    Thread-12 :2774602 [dir_watcher.py:_on_file_created():271] file/dir created: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/requirements.txt
+2024-01-12 14:25:20,061 INFO    Thread-12 :2774602 [dir_watcher.py:_on_file_created():271] file/dir created: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/output.log
+2024-01-12 14:25:20,061 INFO    Thread-12 :2774602 [dir_watcher.py:_on_file_created():271] file/dir created: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/wandb-metadata.json
+2024-01-12 14:25:22,061 INFO    Thread-12 :2774602 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/output.log
+2024-01-12 14:25:22,113 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:25:24,062 INFO    Thread-12 :2774602 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/output.log
+2024-01-12 14:25:26,062 INFO    Thread-12 :2774602 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/output.log
+2024-01-12 14:25:27,514 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:25:32,515 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:25:34,230 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-12 14:25:34,230 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: stop_status
+2024-01-12 14:25:34,231 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-12 14:25:38,350 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:25:43,351 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:25:48,354 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:25:49,068 INFO    Thread-12 :2774602 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/config.yaml
+2024-01-12 14:25:49,230 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-12 14:25:49,230 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: stop_status
+2024-01-12 14:25:49,272 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-12 14:25:54,302 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:25:59,303 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:26:04,230 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-12 14:26:04,230 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: stop_status
+2024-01-12 14:26:04,272 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-12 14:26:04,322 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:26:09,323 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:26:14,323 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:26:17,166 DEBUG   SystemMonitor:2774602 [system_monitor.py:_start():172] Starting system metrics aggregation loop
+2024-01-12 14:26:17,167 DEBUG   SenderThread:2774602 [sender.py:send():382] send: stats
+2024-01-12 14:26:19,230 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-12 14:26:19,230 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: stop_status
+2024-01-12 14:26:19,272 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-12 14:26:20,313 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:26:25,314 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:26:30,314 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:26:34,230 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-12 14:26:34,231 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: stop_status
+2024-01-12 14:26:34,272 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-12 14:26:35,319 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:26:40,320 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:26:45,321 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:26:47,167 DEBUG   SenderThread:2774602 [sender.py:send():382] send: stats
+2024-01-12 14:26:49,230 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-12 14:26:49,231 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: stop_status
+2024-01-12 14:26:49,272 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-12 14:26:50,383 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:26:51,872 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-12 14:26:51,873 DEBUG   SenderThread:2774602 [sender.py:send():382] send: history
+2024-01-12 14:26:51,873 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: summary_record
+2024-01-12 14:26:51,873 INFO    SenderThread:2774602 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-12 14:26:52,083 INFO    Thread-12 :2774602 [dir_watcher.py:_on_file_created():271] file/dir created: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/wandb-summary.json
+2024-01-12 14:26:54,083 INFO    Thread-12 :2774602 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/output.log
+2024-01-12 14:26:55,874 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:27:00,875 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:27:04,230 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-12 14:27:04,231 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: stop_status
+2024-01-12 14:27:04,232 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-12 14:27:06,295 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:27:09,684 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-12 14:27:09,685 DEBUG   SenderThread:2774602 [sender.py:send():382] send: history
+2024-01-12 14:27:09,686 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: summary_record
+2024-01-12 14:27:09,686 INFO    SenderThread:2774602 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-12 14:27:10,087 INFO    Thread-12 :2774602 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/wandb-summary.json
+2024-01-12 14:27:11,463 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-12 14:27:11,464 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:27:11,464 DEBUG   SenderThread:2774602 [sender.py:send():382] send: history
+2024-01-12 14:27:11,464 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: summary_record
+2024-01-12 14:27:11,480 INFO    SenderThread:2774602 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-12 14:27:11,481 DEBUG   SenderThread:2774602 [sender.py:send():382] send: telemetry
+2024-01-12 14:27:11,481 DEBUG   SenderThread:2774602 [sender.py:send():382] send: exit
+2024-01-12 14:27:11,481 INFO    SenderThread:2774602 [sender.py:send_exit():589] handling exit code: 0
+2024-01-12 14:27:11,481 INFO    SenderThread:2774602 [sender.py:send_exit():591] handling runtime: 114
+2024-01-12 14:27:11,584 INFO    SenderThread:2774602 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-12 14:27:11,585 INFO    SenderThread:2774602 [sender.py:send_exit():597] send defer
+2024-01-12 14:27:11,585 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: defer
+2024-01-12 14:27:11,585 INFO    HandlerThread:2774602 [handler.py:handle_request_defer():172] handle defer: 0
+2024-01-12 14:27:11,585 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: defer
+2024-01-12 14:27:11,585 INFO    SenderThread:2774602 [sender.py:send_request_defer():613] handle sender defer: 0
+2024-01-12 14:27:11,585 INFO    SenderThread:2774602 [sender.py:transition_state():617] send defer: 1
+2024-01-12 14:27:11,585 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: defer
+2024-01-12 14:27:11,585 INFO    HandlerThread:2774602 [handler.py:handle_request_defer():172] handle defer: 1
+2024-01-12 14:27:11,586 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: defer
+2024-01-12 14:27:11,586 INFO    SenderThread:2774602 [sender.py:send_request_defer():613] handle sender defer: 1
+2024-01-12 14:27:11,586 INFO    SenderThread:2774602 [sender.py:transition_state():617] send defer: 2
+2024-01-12 14:27:11,586 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: defer
+2024-01-12 14:27:11,586 INFO    HandlerThread:2774602 [handler.py:handle_request_defer():172] handle defer: 2
+2024-01-12 14:27:11,586 INFO    HandlerThread:2774602 [system_monitor.py:finish():203] Stopping system monitor
+2024-01-12 14:27:11,586 INFO    HandlerThread:2774602 [interfaces.py:finish():202] Joined cpu monitor
+2024-01-12 14:27:11,586 INFO    HandlerThread:2774602 [interfaces.py:finish():202] Joined disk monitor
+2024-01-12 14:27:11,587 DEBUG   SystemMonitor:2774602 [system_monitor.py:_start():179] Finished system metrics aggregation loop
+2024-01-12 14:27:11,587 DEBUG   SystemMonitor:2774602 [system_monitor.py:_start():183] Publishing last batch of metrics
+2024-01-12 14:27:11,618 INFO    HandlerThread:2774602 [interfaces.py:finish():202] Joined gpu monitor
+2024-01-12 14:27:11,618 INFO    HandlerThread:2774602 [interfaces.py:finish():202] Joined memory monitor
+2024-01-12 14:27:11,618 INFO    HandlerThread:2774602 [interfaces.py:finish():202] Joined network monitor
+2024-01-12 14:27:11,619 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: defer
+2024-01-12 14:27:11,619 INFO    SenderThread:2774602 [sender.py:send_request_defer():613] handle sender defer: 2
+2024-01-12 14:27:11,619 INFO    SenderThread:2774602 [sender.py:transition_state():617] send defer: 3
+2024-01-12 14:27:11,619 DEBUG   SenderThread:2774602 [sender.py:send():382] send: stats
+2024-01-12 14:27:11,619 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: defer
+2024-01-12 14:27:11,619 INFO    HandlerThread:2774602 [handler.py:handle_request_defer():172] handle defer: 3
+2024-01-12 14:27:11,619 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: defer
+2024-01-12 14:27:11,619 INFO    SenderThread:2774602 [sender.py:send_request_defer():613] handle sender defer: 3
+2024-01-12 14:27:11,619 INFO    SenderThread:2774602 [sender.py:transition_state():617] send defer: 4
+2024-01-12 14:27:11,619 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: defer
+2024-01-12 14:27:11,620 INFO    HandlerThread:2774602 [handler.py:handle_request_defer():172] handle defer: 4
+2024-01-12 14:27:11,620 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: defer
+2024-01-12 14:27:11,620 INFO    SenderThread:2774602 [sender.py:send_request_defer():613] handle sender defer: 4
+2024-01-12 14:27:11,620 INFO    SenderThread:2774602 [sender.py:transition_state():617] send defer: 5
+2024-01-12 14:27:11,620 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: defer
+2024-01-12 14:27:11,620 INFO    HandlerThread:2774602 [handler.py:handle_request_defer():172] handle defer: 5
+2024-01-12 14:27:11,620 DEBUG   SenderThread:2774602 [sender.py:send():382] send: summary
+2024-01-12 14:27:11,675 INFO    SenderThread:2774602 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-12 14:27:11,675 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: defer
+2024-01-12 14:27:11,675 INFO    SenderThread:2774602 [sender.py:send_request_defer():613] handle sender defer: 5
+2024-01-12 14:27:11,675 INFO    SenderThread:2774602 [sender.py:transition_state():617] send defer: 6
+2024-01-12 14:27:11,675 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: defer
+2024-01-12 14:27:11,675 INFO    HandlerThread:2774602 [handler.py:handle_request_defer():172] handle defer: 6
+2024-01-12 14:27:11,676 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: defer
+2024-01-12 14:27:11,676 INFO    SenderThread:2774602 [sender.py:send_request_defer():613] handle sender defer: 6
+2024-01-12 14:27:11,678 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: status_report
+2024-01-12 14:27:11,794 INFO    SenderThread:2774602 [sender.py:transition_state():617] send defer: 7
+2024-01-12 14:27:11,795 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: defer
+2024-01-12 14:27:11,795 INFO    HandlerThread:2774602 [handler.py:handle_request_defer():172] handle defer: 7
+2024-01-12 14:27:11,795 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: defer
+2024-01-12 14:27:11,795 INFO    SenderThread:2774602 [sender.py:send_request_defer():613] handle sender defer: 7
+2024-01-12 14:27:12,088 INFO    Thread-12 :2774602 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/wandb-summary.json
+2024-01-12 14:27:12,089 INFO    Thread-12 :2774602 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/output.log
+2024-01-12 14:27:12,089 INFO    Thread-12 :2774602 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/config.yaml
+2024-01-12 14:27:12,465 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: poll_exit
+2024-01-12 14:27:13,483 INFO    SenderThread:2774602 [sender.py:transition_state():617] send defer: 8
+2024-01-12 14:27:13,483 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: poll_exit
+2024-01-12 14:27:13,484 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: defer
+2024-01-12 14:27:13,484 INFO    HandlerThread:2774602 [handler.py:handle_request_defer():172] handle defer: 8
+2024-01-12 14:27:13,484 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: defer
+2024-01-12 14:27:13,485 INFO    SenderThread:2774602 [sender.py:send_request_defer():613] handle sender defer: 8
+2024-01-12 14:27:13,485 INFO    SenderThread:2774602 [job_builder.py:build():296] Attempting to build job artifact
+2024-01-12 14:27:13,485 INFO    SenderThread:2774602 [job_builder.py:_get_source_type():426] is repo sourced job
+2024-01-12 14:27:13,495 INFO    SenderThread:2774602 [job_builder.py:build():402] adding wandb-job metadata file
+2024-01-12 14:27:13,515 INFO    SenderThread:2774602 [sender.py:transition_state():617] send defer: 9
+2024-01-12 14:27:13,515 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: defer
+2024-01-12 14:27:13,516 INFO    HandlerThread:2774602 [handler.py:handle_request_defer():172] handle defer: 9
+2024-01-12 14:27:13,516 DEBUG   SenderThread:2774602 [sender.py:send():382] send: artifact
+2024-01-12 14:27:13,804 INFO    SenderThread:2774602 [sender.py:send_artifact():1494] sent artifact job-git_github.com_rmf3mc_mmanet.git_Train.py - {'id': 'QXJ0aWZhY3Q6Njg5MjMwNjU2', 'state': 'COMMITTED', 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjEyOTc0MzA2Ng==', 'latestArtifact': {'id': 'QXJ0aWZhY3Q6Njg5MjMwNjU2', 'versionIndex': 0}}}
+2024-01-12 14:27:13,804 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: defer
+2024-01-12 14:27:13,804 INFO    SenderThread:2774602 [sender.py:send_request_defer():613] handle sender defer: 9
+2024-01-12 14:27:13,804 INFO    SenderThread:2774602 [dir_watcher.py:finish():358] shutting down directory watcher
+2024-01-12 14:27:14,090 INFO    Thread-12 :2774602 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/output.log
+2024-01-12 14:27:14,091 INFO    SenderThread:2774602 [dir_watcher.py:finish():388] scan: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files
+2024-01-12 14:27:14,092 INFO    SenderThread:2774602 [dir_watcher.py:finish():402] scan save: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/wandb-metadata.json wandb-metadata.json
+2024-01-12 14:27:14,092 INFO    SenderThread:2774602 [dir_watcher.py:finish():402] scan save: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/output.log output.log
+2024-01-12 14:27:14,092 INFO    SenderThread:2774602 [dir_watcher.py:finish():402] scan save: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/config.yaml config.yaml
+2024-01-12 14:27:14,093 INFO    SenderThread:2774602 [dir_watcher.py:finish():402] scan save: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/conda-environment.yaml conda-environment.yaml
+2024-01-12 14:27:14,105 INFO    SenderThread:2774602 [dir_watcher.py:finish():402] scan save: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/wandb-summary.json wandb-summary.json
+2024-01-12 14:27:14,105 INFO    SenderThread:2774602 [dir_watcher.py:finish():402] scan save: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/requirements.txt requirements.txt
+2024-01-12 14:27:14,106 INFO    SenderThread:2774602 [sender.py:transition_state():617] send defer: 10
+2024-01-12 14:27:14,108 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: defer
+2024-01-12 14:27:14,108 INFO    HandlerThread:2774602 [handler.py:handle_request_defer():172] handle defer: 10
+2024-01-12 14:27:14,122 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: defer
+2024-01-12 14:27:14,123 INFO    SenderThread:2774602 [sender.py:send_request_defer():613] handle sender defer: 10
+2024-01-12 14:27:14,123 INFO    SenderThread:2774602 [file_pusher.py:finish():175] shutting down file pusher
+2024-01-12 14:27:14,315 INFO    wandb-upload_0:2774602 [upload_job.py:push():131] Uploaded file /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/output.log
+2024-01-12 14:27:14,403 INFO    wandb-upload_1:2774602 [upload_job.py:push():131] Uploaded file /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/config.yaml
+2024-01-12 14:27:14,465 INFO    wandb-upload_4:2774602 [upload_job.py:push():131] Uploaded file /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/requirements.txt
+2024-01-12 14:27:14,466 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: poll_exit
+2024-01-12 14:27:14,469 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: poll_exit
+2024-01-12 14:27:14,469 INFO    wandb-upload_2:2774602 [upload_job.py:push():131] Uploaded file /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/conda-environment.yaml
+2024-01-12 14:27:14,485 INFO    wandb-upload_3:2774602 [upload_job.py:push():131] Uploaded file /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/files/wandb-summary.json
+2024-01-12 14:27:14,685 INFO    Thread-11 (_thread_body):2774602 [sender.py:transition_state():617] send defer: 11
+2024-01-12 14:27:14,686 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: defer
+2024-01-12 14:27:14,686 INFO    HandlerThread:2774602 [handler.py:handle_request_defer():172] handle defer: 11
+2024-01-12 14:27:14,687 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: defer
+2024-01-12 14:27:14,687 INFO    SenderThread:2774602 [sender.py:send_request_defer():613] handle sender defer: 11
+2024-01-12 14:27:14,687 INFO    SenderThread:2774602 [file_pusher.py:join():181] waiting for file pusher
+2024-01-12 14:27:14,687 INFO    SenderThread:2774602 [sender.py:transition_state():617] send defer: 12
+2024-01-12 14:27:14,688 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: defer
+2024-01-12 14:27:14,688 INFO    HandlerThread:2774602 [handler.py:handle_request_defer():172] handle defer: 12
+2024-01-12 14:27:14,689 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: defer
+2024-01-12 14:27:14,689 INFO    SenderThread:2774602 [sender.py:send_request_defer():613] handle sender defer: 12
+2024-01-12 14:27:14,689 INFO    SenderThread:2774602 [file_stream.py:finish():595] file stream finish called
+2024-01-12 14:27:14,763 INFO    SenderThread:2774602 [file_stream.py:finish():599] file stream finish is done
+2024-01-12 14:27:14,763 INFO    SenderThread:2774602 [sender.py:transition_state():617] send defer: 13
+2024-01-12 14:27:14,764 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: defer
+2024-01-12 14:27:14,764 INFO    HandlerThread:2774602 [handler.py:handle_request_defer():172] handle defer: 13
+2024-01-12 14:27:14,765 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: defer
+2024-01-12 14:27:14,765 INFO    SenderThread:2774602 [sender.py:send_request_defer():613] handle sender defer: 13
+2024-01-12 14:27:14,765 INFO    SenderThread:2774602 [sender.py:transition_state():617] send defer: 14
+2024-01-12 14:27:14,765 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: defer
+2024-01-12 14:27:14,766 INFO    HandlerThread:2774602 [handler.py:handle_request_defer():172] handle defer: 14
+2024-01-12 14:27:14,767 DEBUG   SenderThread:2774602 [sender.py:send():382] send: final
+2024-01-12 14:27:14,767 DEBUG   SenderThread:2774602 [sender.py:send():382] send: footer
+2024-01-12 14:27:14,767 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: defer
+2024-01-12 14:27:14,767 INFO    SenderThread:2774602 [sender.py:send_request_defer():613] handle sender defer: 14
+2024-01-12 14:27:14,769 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: poll_exit
+2024-01-12 14:27:14,770 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: poll_exit
+2024-01-12 14:27:14,773 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-12 14:27:14,775 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: server_info
+2024-01-12 14:27:14,776 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: server_info
+2024-01-12 14:27:14,817 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: get_summary
+2024-01-12 14:27:14,818 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: sampled_history
+2024-01-12 14:27:14,818 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: job_info
+2024-01-12 14:27:14,824 DEBUG   SenderThread:2774602 [sender.py:send_request():409] send_request: job_info
+2024-01-12 14:27:14,861 DEBUG   HandlerThread:2774602 [handler.py:handle_request():146] handle_request: shutdown
+2024-01-12 14:27:14,861 INFO    HandlerThread:2774602 [handler.py:finish():869] shutting down handler
+2024-01-12 14:27:15,820 INFO    WriterThread:2774602 [datastore.py:close():296] close: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240112_142516-8nq8cogv/run-8nq8cogv.wandb
+2024-01-12 14:27:15,824 INFO    SenderThread:2774602 [sender.py:finish():1572] shutting down sender
+2024-01-12 14:27:15,824 INFO    SenderThread:2774602 [file_pusher.py:finish():175] shutting down file pusher
+2024-01-12 14:27:15,824 INFO    SenderThread:2774602 [file_pusher.py:join():181] waiting for file pusher

@@ -1,0 +1,119 @@
+Batch_size 8
+MANet False
+MMANet True
+mask_guided False
+seg_included True
+cls_included False
+freeze_all True
+Full-scale Deep Supervision False
+Unet True
+deform_expan 2.0
+Initialized datatset with 800 images.
+Initialized datatset with 400 images.
+2.8849494457244873
+self.seg_included: True
+last 2208
+freeze layers:
+**********************************
+12
+0 torch.Size([1, 96, 112, 112])
+1 torch.Size([1, 96, 112, 112])
+2 torch.Size([1, 96, 112, 112])
+3 torch.Size([1, 96, 56, 56])
+4 torch.Size([1, 384, 56, 56])
+5 torch.Size([1, 192, 28, 28])
+6 torch.Size([1, 768, 28, 28])
+7 torch.Size([1, 384, 14, 14])
+8 torch.Size([1, 2112, 14, 14])
+9 torch.Size([1, 1056, 7, 7])
+10 torch.Size([1, 2208, 7, 7])
+11 torch.Size([1, 2208, 7, 7])
+************************
+Down sample at [0, 3, 5, 7, 9]
+Number of out channels [96, 384, 768, 2112, 2208]
+From_Layer:0 to_Layer:2
+From_Layer:3 to_Layer:4
+From_Layer:5 to_Layer:6
+From_Layer:7 to_Layer:8
+From_Layer:9 to_End
+********************
+out_channels 96
+out_channels 96
+out_channels 384
+out_channels 768
+out_channels 2112
+Loading weights
+model.seg_included True
+model.MMANet True
+model.MANet False
+Total parameters in the model: 432.285413
+Epoch: 0
+Acc: 100.000% (800/800)| CE: 0.0018| Total Loss: 0.1793| IoU :0.0207
+Acc: 36.250% (145/400)| CE: 3.0603|  Total Loss: 0.1457| IoU :0.0000
+cur_iou:4.5815906949374374e-12,best_iou:4.5815906949374374e-12:
+curr_Acc:36.25,best_Acc:36.25:
+Saving..
+Best Testing IoU Based On the Training:4.5815906949374374e-12
+Best Testing Accuracy Based On the Training:36.25
+Time Elapsed:112.33952236175537
+Epoch: 1
+Acc: 100.000% (800/800)| CE: 0.0019| Total Loss: 0.1374| IoU :0.0000
+Acc: 36.250% (145/400)| CE: 3.0603|  Total Loss: 0.1413| IoU :0.0000
+cur_iou:4.5815906949374374e-12,best_iou:4.5815906949374374e-12:
+curr_Acc:36.25,best_Acc:36.25:
+Best Testing IoU Based On the Training:4.5815906949374374e-12
+Best Testing Accuracy Based On the Training:36.25
+Time Elapsed:112.0913827419281
+Epoch: 2
+Acc: 100.000% (800/800)| CE: 0.0018| Total Loss: 0.1242| IoU :0.0000
+Acc: 36.250% (145/400)| CE: 3.0603|  Total Loss: 0.1344| IoU :0.0000
+cur_iou:4.5815906949374374e-12,best_iou:4.5815906949374374e-12:
+curr_Acc:36.25,best_Acc:36.25:
+Best Testing IoU Based On the Training:4.5815906949374374e-12
+Best Testing Accuracy Based On the Training:36.25
+Time Elapsed:111.92823624610901
+Epoch: 3
+Acc: 100.000% (800/800)| CE: 0.0019| Total Loss: 0.0950| IoU :6.4168
+Acc: 36.250% (145/400)| CE: 3.0603|  Total Loss: 0.0886| IoU :21.3843
+cur_iou:21.384325355291367,best_iou:21.384325355291367:
+curr_Acc:36.25,best_Acc:36.25:
+Saving..
+Best Testing IoU Based On the Training:21.384325355291367
+Best Testing Accuracy Based On the Training:36.25
+Time Elapsed:112.36067366600037
+Epoch: 4
+Acc: 100.000% (800/800)| CE: 0.0019| Total Loss: 0.0814| IoU :26.5204
+Acc: 36.250% (145/400)| CE: 3.0603|  Total Loss: 0.0878| IoU :42.3141
+cur_iou:42.3140749335289,best_iou:42.3140749335289:
+curr_Acc:36.25,best_Acc:36.25:
+Saving..
+Best Testing IoU Based On the Training:42.3140749335289
+Best Testing Accuracy Based On the Training:36.25
+Time Elapsed:112.38976335525513
+Epoch: 5
+Acc: 100.000% (800/800)| CE: 0.0019| Total Loss: 0.0771| IoU :31.6372
+Acc: 36.250% (145/400)| CE: 3.0603|  Total Loss: 0.0799| IoU :37.9046
+cur_iou:37.90462964773178,best_iou:42.3140749335289:
+curr_Acc:36.25,best_Acc:36.25:
+Saving..
+Best Testing IoU Based On the Training:37.90462964773178
+Best Testing Accuracy Based On the Training:36.25
+Time Elapsed:112.36759114265442
+Epoch: 6
+Acc: 100.000% (800/800)| CE: 0.0018| Total Loss: 0.0752| IoU :34.6640
+Acc: 36.250% (145/400)| CE: 3.0603|  Total Loss: 0.0785| IoU :34.4418
+cur_iou:34.441768169403076,best_iou:42.3140749335289:
+curr_Acc:36.25,best_Acc:36.25:
+Saving..
+Best Testing IoU Based On the Training:34.441768169403076
+Best Testing Accuracy Based On the Training:36.25
+Time Elapsed:112.66593837738037
+Epoch: 7
+Acc: 100.000% (800/800)| CE: 0.0018| Total Loss: 0.0737| IoU :35.9253
+Acc: 36.250% (145/400)| CE: 3.0603|  Total Loss: 0.0782| IoU :36.7783
+cur_iou:36.77825003862381,best_iou:42.3140749335289:
+curr_Acc:36.25,best_Acc:36.25:
+Saving..
+Best Testing IoU Based On the Training:36.77825003862381
+Best Testing Accuracy Based On the Training:36.25
+Time Elapsed:112.06540393829346

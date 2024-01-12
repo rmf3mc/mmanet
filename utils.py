@@ -7,11 +7,11 @@ def get_folder_path(args):
 
     # Append the name of the argument to the list if it's True
     
-    path_parts.append(args.dataset)
+    path_parts.append(args.dataset[:3])
 
 
     if args.seg_ild:
-        path_parts.append('Segmentation')
+        path_parts.append(str(args.deform_expan))
         if args.unet:
             path_parts.append('Unet')
         else:
@@ -20,7 +20,6 @@ def get_folder_path(args):
         if args.fsds:
             path_parts.append('FSDS')
         
-        path_parts.append(str(args.deform_expan))
         
     
     path_parts.append(args.backbone_class)

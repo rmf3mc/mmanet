@@ -29,13 +29,14 @@ from leafvein2 import Leafvein
 from backboneModels import *
 from utils import *
 
+
 print('**End of Importing**')
 
 
 # In[2]:
 
 
-from torchvision.ops import DeformConv2d
+
 
 
 # In[ ]:
@@ -142,8 +143,8 @@ start_epoch=0
 # In[4]:
 
 
-#current_working_directory = os.getcwd()
 if args.local_train==1:
+    #current_working_directory = os.getcwd()    
     current_working_directory = '/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches_AMP/'
 else:
     current_working_directory = '/mnt/mywork/all_backbones/'
@@ -164,18 +165,18 @@ if cls_ild and not(seg_ild):
 
 elif seg_ild and not (cls_ild):
     if args.unet:
-        train_type=os.path.join(args.dataset+'-results-seg','Unet'+str(args.deform_expan))
+        train_type=os.path.join(args.dataset+'-results-seg','Unet')
     else:
-        train_type=os.path.join(args.dataset+'-results-seg','Unet3Plus'+str(args.deform_expan))
+        train_type=os.path.join(args.dataset+'-results-seg','3PlusUnet')
 
 else:
     if args.unet:
-        train_type=os.path.join(args.dataset+'-results-seg-cls','Unet'+str(args.deform_expan))
+        train_type=os.path.join(args.dataset+'-results-seg-cls','Unet')
     else:
-        train_type=os.path.join(args.dataset+'-results-seg-cls','Unet3Plus'+str(args.deform_expan))
+        train_type=os.path.join(args.dataset+'-results-seg-cls','3PlusUnet')
 
 folder_path =os.path.join(current_working_directory,train_type,args.backbone_class,name,formatted_datetime)
-accuracy_file_path =os.path.join(folder_path,'model_accuracies_iou.txt')
+accuracy_file_path =os.path.join(folder_path,'Accuracies_Iou.txt')
     
     
 print('File path:',accuracy_file_path)
@@ -188,6 +189,37 @@ if not os.path.exists(folder_path):
 models_folder=current_working_directory+'/checkpoint'
 if not os.path.exists(models_folder):
     os.makedirs(models_folder)
+
+
+# In[ ]:
+
+
+import wandb
+
+run=wandb.init(
+    # set the wandb project where this run will be logged
+    project="icip24-segmentation",
+    entity="ramytrm",
+    group=name,
+    
+    # track hyperparameters and run metadata
+    config={
+    "learning_rate": args.lr,
+    "backbone_class": args.backbone_class,
+    "dataset": args.dataset,
+    "epochs": args.max_epoch,
+    "Segmentation Training":args.seg_ild,
+    "Classification Training":args.cls_ild,
+    "freeze_all": args.freeze_all,
+    "manet": args.manet,
+    "mmanet": args.mmanet,
+    "maskguided": args.maskguided,
+    "unet": args.unet,
+    "deform_expan": args.deform_expan,
+    "fsds": args.fsds,
+    "local_train": args.local_train
+    }
+)
 
 
 # In[7]:
@@ -261,6 +293,7 @@ if args.seg_ild:
 
 total_params = sum(p.numel() for p in model.parameters())
 print(f"Total parameters in the model: {total_params/1e+6}")
+run.config.model_no_paras=total_params/1e+6
 
 
 with open(accuracy_file_path, 'a') as f:
@@ -405,7 +438,8 @@ def train_epoch_Seg(epoch):
         f.write(f'Acc: {accuracy:.3f}% ({correct}/{total})| CE: {train_ce_loss:.4f}| Total Loss: {train_loss:.4f}| IoU :{averageIoU:.4f}\n')
 
     
-    
+    wandb.log({"Training IoU": averageIoU,
+               "Training Accuracy":accuracy})
     train_total_losses.append(train_loss)
     train_iou.append(averageIoU)
     return averageIoU,accuracy,train_ce_loss
@@ -519,6 +553,11 @@ def test_epoch_Seg(epoch):
         f.write(f'Acc: {accuracy:.3f}% ({correct}/{total})| CE: {test_ce_loss:.4f}| Total Loss: {test_loss:.4f}| IoU :{averageIoU:.4f}\n')
         f.write(f'cur_iou:{averageIoU},best_iou:{best_iou}\n')
         f.write(f'curr_Acc:{accuracy},best_Acc:{best_acc}\n')
+        
+    wandb.log({"Current Testing IoU": averageIoU,
+               "Overall Best Testing Iou":best_iou,
+               "Current Testing Accuracy":accuracy,
+               "Best Testing Accuracy": best_acc})
 
         
 
@@ -551,6 +590,10 @@ def check_seg_performance(iou,curr_test_iou,test_acc,net,epoch,end,start,model_p
         f.write(f'Best Testing IoU Based On the Training:{best_test_iou}\n')
         f.write(f'Best Testing Accuracy Based On the Training:{Best_test_acc_BOT}\n')
         f.write(f'Time Elapsed:{end-start}\n')
+        
+    wandb.log({"Best Testing IoU BOT": best_test_iou,
+               "Best Testing Accuracy BOT":Best_test_acc_BOT,
+               "Elapsed Time":end-start})
 
 
             
@@ -649,6 +692,8 @@ for epoch in range(start_epoch, args.max_epoch):
 # In[ ]:
 
 
+run.finish()
+
 all_results_file =os.path.join(current_working_directory,train_type,args.backbone_class,'all_results_file.txt')
 
 
@@ -662,199 +707,18 @@ try:
             file.write(f"**{name} 's Testing Accuracies**\n")
             file.write(f'***Total parameters in the model: {total_params/1e+6}***\n')            
             file.write(f'*****{formatted_datetime} Time*****\n')
+            file.write('********Training IOU\n')
+            file.write(f'Training IOU:{iou}\n')
+            file.write(f'Best Training IOU:{train_best_iou}\n')
+            file.write('********Testing IOU\n')
+            file.write(f'The overall Very Best Testing IOU :{best_iou}\n')
             file.write(f'Best Testing IoU Based On the Training:{best_test_iou}\n')
+            file.write('********\n')
+            file.write('Training Acc*****\n')
+            file.write(f'Training Loss:{train_ce_loss}\n')
             file.write(f'Best Testing Accuracy Based On the Training:{Best_test_acc_BOT}\n')
+            file.write(f'The overall Very Best Testing Accuracy :{best_acc}\n')
             file.write(f'*************************************************************\n\n')
 except Timeout:
     print("Could not acquire the lock within 120 seconds.")
-
-
-# In[ ]:
-
-
-'''
-# Add arguments
-parser.add_argument('--lr', default=0.05, type=float, help='learning rate')
-parser.add_argument('--max_epoch', default=150, type=int, help='resume from checkpoint')
-parser.add_argument('--backbone_class', type=str, default='densenet161', choices=['densenet161', 'vgg19', 'resnet50', 'resnet34', 'mobilenet_v2', 'inception_v3'], help='resume from checkpoint')
-parser.add_argument('--dataset', type=str, default='soybean_2_1', choices=['soybean_1_1', 'soybean_2_1', 'btf', 'hainan_leaf'], help='resume from checkpoint')
-parser.add_argument('--data_dir', type=str, default='./data')
-parser.add_argument('--Seg_Size', default=448, type=int, help='Segmentation Dimension')
-parser.add_argument('--num_classes', default=200, type=int, help='Number of Classes')
-
-
-
-parser.add_argument('--DataParallel', action='store_true', help='Enable Data Parallel')
-parser.add_argument('--seg_included', action='store_true', help='Enable Segmentation Training')
-parser.add_argument('--cls_included', action='store_true', help='Enable Classification Training')
-parser.add_argument('--freeze_all', action='store_true', help='Freeze the Encoder Module')
-parser.add_argument('--MMANet', action='store_true', help='Using the MMANet')
-parser.add_argument('--MGANet', action='store_true', help='Using the MGANet')
-parser.add_argument('--maskguided', action='store_true', help='Using the MGANet')
-parser.add_argument('--Unet', action='store_true', help='Using the Unet')
-parser.add_argument('--mp', action='store_true', help='using automatic mixed precision training”')
-
-parser.add_argument('--model_path', type=str , help='Use Pretrained Model')
-'''
-
-
-# In[ ]:
-
-
-'''
-Epoch: 0
-Acc: 0.375% (3/800)| CE: 5.5615| Total Loss: 5.5615| IoU :0.0000
-Acc: 0.000% (0/400)| CE: 6.0858|  Total Loss: 6.0858| IoU :0.0000
-cur_iou:0.0,best_iou:0:
-curr_Acc:0.0,best_Acc:0:
-Saving..
-Best Testing IoU Based On the Training:0.0
-Best Testing Accuracy Based On the Training:0.0
-Time Elapsed:20.380533456802368
-
-
-Epoch: 1
-Acc: 0.875% (7/800)| CE: 5.1327| Total Loss: 5.1327| IoU :0.0000
-Acc: 3.500% (14/400)| CE: 4.9119|  Total Loss: 4.9119| IoU :0.0000
-cur_iou:0.0,best_iou:0:
-curr_Acc:3.5,best_Acc:3.5:
-Saving..
-Best Testing IoU Based On the Training:0.0
-Best Testing Accuracy Based On the 
-
-'''
-
-
-# In[ ]:
-
-
-# from copy import deepcopy
-# net_original = deepcopy(net)
-
-
-# x = torch.randn(8, 1, 28, 28)
-
-# # Define a 2x2 max pooling layer
-# pool = nn.MaxPool2d(kernel_size=2, stride=2)
-
-# # Apply the pooling layer to the tensor
-# y = pool(x)
-
-# print(y.size())
-
-# def compare_model_params(model1, model2):
-#     # Get state dictionaries
-#     state_dict1 = model1.state_dict()
-#     state_dict2 = model2.state_dict()
-    
-#     total_unchanged=0
-#     total_changed=0
-
-#     # Compare sizes and if sizes match, compare values
-#     for ((key1, param1), (key2, param2)) in zip(state_dict1.items(), state_dict2.items()):
-        
-#         if param1.size() != param2.size():
-#             print(f"Mismatch in size for layer {key1}: {param1.size()} vs {param2.size()}")
-#             continue  # Skip further comparison if sizes differ
-#         # Check if the parameters are the same
-#         if torch.equal(param1, param2):
-#             total_unchanged+=1
-
-#         else:
-#             total_changed+=1
-#             print(f"Parameters of layer {key1} differ.")
-#     print('Changed, unchanged, Both',total_changed,total_unchanged,total_changed+total_unchanged)
-
-# compare_model_params(net,net_original)
-
-# import matplotlib.pyplot as plt
-# plt.plot(train_iou)
-# plt.show()
-# plt.plot(test_iou)
-# plt.show()
-
-
-# print(test_iou[-1])
-# print(train_iou[-1])
-# test_iou[250]
-# print(optimizer.param_groups[0]['lr'])
-
-
-# In[ ]:
-
-
-# def _check_layers(model, upto=None):
-#     cnt, th = 0, 0
-#     print('freeze layers:')
-#     if upto:
-#         th = upto
-#     else:
-#         th=float('inf')
-#     for name, child in model.named_children():
-#         cnt += 1
-#         if cnt < th:
-#             layer_type = type(child).__name__
-#             for name2, params in child.named_parameters():
-#                 #layer_type2 = type(params).__name__
-                
-#                 print(name, layer_type,name2, cnt,params.requires_grad) 
-# #                 if params.requires_grad==True:
-# #                     number_of_unfrozen_layers+=1
-
-
-
-# # def _check_layers(model, prefix='', cnt=0, th=float('inf')):
-# #     if cnt >= th:
-# #         return
-# #     for name, child in model.named_children():
-# #         cnt += 1
-# #         new_prefix = f"{prefix}{name}." if prefix else name
-# #         layer_type = type(child).__name__
-# #         if len(list(child.children())) > 0:  # Check if child has further sub-layers
-# #             _check_layers(child, new_prefix, cnt, th)
-# #         for name2, params in child.named_parameters(recurse=False):
-# #             print(f"{new_prefix} ({layer_type}) {name2} {cnt} {params.requires_grad}")
-
-
-
-# number_of_unfrozen_layers=0
-
-# print('*******Features****************')
-  
-        
-# _check_layers(model)
-
-
-# # print('*******Classifier****************')
-
-# # nnn=model.classifier
-# # _check_layers(nnn)
-
-
-
-# # print('*******Classifier****************')
-# # for name, param in nnn.named_parameters():
-# #     print(name,param.requires_grad)
-# #     if param.requires_grad==True:
-# #         number_of_unfrozen_layers+=1
-    
-    
-# # print('**********Attention*************')
-
-    
-# # nnn=model.attention
-# # for name, param in nnn.named_parameters():
-# #     print(name,param.requires_grad)
-# #     if param.requires_grad==True:
-# #         number_of_unfrozen_layers+=1
-    
-    
-    
-# # print('**********Encoders1*************')
-
-# # for i in range (1,6):
-# #     nnn=model.Encoders[i]
-# #     _check_layers(nnn)
-
-# # print(f'Total unfrozzen:{number_of_unfrozen_layers} ')
 
