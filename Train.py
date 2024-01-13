@@ -207,7 +207,7 @@ run=wandb.init(
     "learning_rate": args.lr,
     "backbone_class": args.backbone_class,
     "dataset": args.dataset,
-    "epochs": args.max_epoch,
+    "Max epochs": args.max_epoch,
     "Segmentation Training":args.seg_ild,
     "Classification Training":args.cls_ild,
     "freeze_all": args.freeze_all,
@@ -438,7 +438,8 @@ def train_epoch_Seg(epoch):
         f.write(f'Acc: {accuracy:.3f}% ({correct}/{total})| CE: {train_ce_loss:.4f}| Total Loss: {train_loss:.4f}| IoU :{averageIoU:.4f}\n')
 
     
-    wandb.log({"Training IoU": averageIoU,
+    wandb.log({"Current Epoch": epoch,
+               "Training IoU": averageIoU,
                "Training Accuracy":accuracy})
     train_total_losses.append(train_loss)
     train_iou.append(averageIoU)
