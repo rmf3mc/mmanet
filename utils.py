@@ -7,7 +7,7 @@ def get_folder_path(args):
 
     # Append the name of the argument to the list if it's True
     
-    path_parts.append(args.dataset[:3])
+
 
 
     if args.seg_ild:
@@ -21,7 +21,8 @@ def get_folder_path(args):
             path_parts.append('FSDS')
         
         
-    
+    path_parts.append(args.dataset[:3])
+        
     path_parts.append(args.backbone_class)
     
     if args.manet:
