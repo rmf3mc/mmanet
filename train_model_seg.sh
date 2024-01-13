@@ -86,7 +86,7 @@ case $ARG in
 
  
     10)
-        $BASE_CMD -fsds      --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 4.00 --unet $Training_MC
+        $BASE_CMD  --fsds      --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 4.00 --unet $Training_MC
         ;;
 
 
@@ -96,7 +96,7 @@ case $ARG in
 
  
     12)
-        $BASE_CMD --fsds      --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 4.5 --unet $Training_MC
+        $BASE_CMD --fsds     --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 4.5 --unet $Training_MC
         ;;
 
     
@@ -106,11 +106,11 @@ case $ARG in
 
  
     14)
-        $BASE_CMD            --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 6.00 --unet $Training_MC
+        $BASE_CMD            --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 5.50 --unet $Training_MC
         ;;
 
     15)
-        $BASE_CMD            --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 7.00 --unet $Training_MC
+        $BASE_CMD --fsds     --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 5.50 --unet $Training_MC
         ;;
 
     *)
