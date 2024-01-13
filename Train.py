@@ -556,7 +556,7 @@ def test_epoch_Seg(epoch):
         f.write(f'curr_Acc:{accuracy},best_Acc:{best_acc}\n')
         
     wandb.log({"Testing Epoch": epoch,
-               ,"Current Testing IoU": averageIoU,
+               "Current Testing IoU": averageIoU,
                "Overall Best Testing Iou":best_iou,
                "Current Testing Accuracy":accuracy,
                "Best Testing Accuracy": best_acc})
