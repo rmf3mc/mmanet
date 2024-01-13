@@ -438,7 +438,7 @@ def train_epoch_Seg(epoch):
         f.write(f'Acc: {accuracy:.3f}% ({correct}/{total})| CE: {train_ce_loss:.4f}| Total Loss: {train_loss:.4f}| IoU :{averageIoU:.4f}\n')
 
     
-    wandb.log({"Current Epoch": epoch,
+    wandb.log({"Current Training Epoch": epoch,
                "Training IoU": averageIoU,
                "Training Accuracy":accuracy})
     train_total_losses.append(train_loss)
@@ -555,7 +555,8 @@ def test_epoch_Seg(epoch):
         f.write(f'cur_iou:{averageIoU},best_iou:{best_iou}\n')
         f.write(f'curr_Acc:{accuracy},best_Acc:{best_acc}\n')
         
-    wandb.log({"Current Testing IoU": averageIoU,
+    wandb.log({"Testing Epoch": epoch,
+               ,"Current Testing IoU": averageIoU,
                "Overall Best Testing Iou":best_iou,
                "Current Testing Accuracy":accuracy,
                "Best Testing Accuracy": best_acc})
