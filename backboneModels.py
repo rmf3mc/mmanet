@@ -97,11 +97,41 @@ class MMANET(nn.Module):
                     self.decoder_layers[str(i)]=UNet3PlusDecoderLayerModule(lvl=i,no_channels=no_outputs_ch,no_classes=self.no_classes)
 
 
-            self.atten_layers= nn.ModuleDict()
-            self.offset_layers=nn.ModuleDict()
+            self.deconv_layers_3= nn.ModuleDict()
+            self.deconv_layers_5= nn.ModuleDict()
+
+            self.atrous_conv_layers_2=nn.ModuleDict()
+            self.atrous_conv_layers_4=nn.ModuleDict()
+            self.atrous_conv_layers_6=nn.ModuleDict()
+
+
+            self.adaptive_layers_3=nn.ModuleDict()
+            self.adaptive_layers_5=nn.ModuleDict()
+
+            self.max_min_expan_layers=nn.ModuleDict()
+
+            all_out_channels=[int(no_outputs_ch[i-1]*(deform_expan-1)/8) for _ in range(7) ]
+            max_mean_layer_outchannels = no_outputs_ch[i-1]*(deform_expan-1) - sum(all_out_channels)
+
+            
             for i in range(1,6):
-                self.atten_layers[str(i)]= DeformConv2d(in_channels=no_outputs_ch[i-1], out_channels=int(no_outputs_ch[i-1]*(self.deform_expan-1)), kernel_size=3, padding=1) #nn.Conv2d(2,1,kernel_size=1, bias=False)
-                self.offset_layers[str(i)]= nn.Conv2d(in_channels=no_outputs_ch[i-1], out_channels=18, kernel_size=3, padding=1)
+                self.deconv_layers_3[str(i)]= DeformConv2d(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[0], kernel_size=3)
+                self.deconv_layers_5[str(i)]= DeformConv2d(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[1], kernel_size=5) 
+
+
+                self.atrous_conv_layers_2[str(i)]= nn.Conv2d(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[2], kernel_size=3, dilation=2, padding=2)
+                self.atrous_conv_layers_4[str(i)]= nn.Conv2d(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[3], kernel_size=3, dilation=4, padding=4)
+                self.atrous_conv_layers_6[str(i)]= nn.Conv2d(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[4], kernel_size=3, dilation=6, padding=6)
+
+
+
+                self.adaptive_layers_3[str(i)]=SpatiallyAdaptiveConv(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[5], kernel_size=3)
+                self.adaptive_layers_5[str(i)]=SpatiallyAdaptiveConv(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[6], kernel_size=5)
+
+
+                self.max_min_expan_layers[str(i)]= nn.Conv2d(2,out_channels=max_mean_layer_outchannels,kernel_size=1)
+
+
 
    
             
@@ -202,14 +232,79 @@ class MMANET(nn.Module):
             #fg_att=self.atten_layers[str(i)](torch.cat((torch.mean(x,dim=1).unsqueeze(1),torch.max(x,dim=1)[0].unsqueeze(1)),dim=1))
             #fg_att=torch.sigmoid(fg_att)
             #features=self.getAttFeats(fg_att,x)
-            fg_att=torch.sigmoid(torch.cat((torch.mean(x,dim=1).unsqueeze(1),torch.max(x,dim=1)[0].unsqueeze(1)),dim=1))
-            offset=self.offset_layers[str(i)](x)
-            deform=self.atten_layers[str(i)](x,offset)
-            features=torch.cat((x,fg_att,deform),dim=1)
+            
+            mean_max=torch.cat((torch.mean(x,dim=1).unsqueeze(1),torch.max(x,dim=1)[0].unsqueeze(1)),dim=1)
+        
+        
+            deform_3=self.deconv_layers_3[str(i)](x)
+            deform_5=self.deconv_layers_5[str(i)](x)
+
+            atrous_2=self.atrous_conv_layers_2[str(i)](x)
+            atrous_4=self.atrous_conv_layers_4[str(i)](x)
+            atrous_6=self.atrous_conv_layers_6[str(i)](x)
+
+
+            adapt_3=self.adaptive_layers_3[str(i)](x)
+            adapt_5=self.adaptive_layers_5[str(i)](x)
+
+            mean_max_expan=self.max_min_expan_layers[str(i)](mean_max)
+
+            features=torch.cat((x,deform_3,deform_5,atrous_2,atrous_4,atrous_6,adapt_3,adapt_5,mean_max_expan),dim=1)
             Encoder_outputs.append(features)
     
 
+
         return Encoder_outputs
+
+
+class DeformConv(nn.Module):
+    def __init__(self, in_channels, out_channels, kernel_size):
+        super(DeformConv, self).__init__()
+        self.offset_generator = nn.Sequential(
+            nn.Conv2d(in_channels, 64, 1),
+            nn.ReLU(),
+            nn.Conv2d(64,  2 * kernel_size * kernel_size, 1)
+        )
+        padding=kernel_size//2
+        self.deform_conv = DeformConv2d(in_channels, out_channels, kernel_size=kernel_size, padding=padding)
+        
+
+    def forward(self, x):
+        offset = self.offset_generator(x)
+        out = self.deform_conv(x, offset)
+        return out
+
+
+
+
+class SpatiallyAdaptiveConv(nn.Module):
+    def __init__(self, in_channels, out_channels, kernel_size):
+        super(SpatiallyAdaptiveConv, self).__init__()
+        self.kernel_size = kernel_size
+        self.in_channels = in_channels
+        self.out_channels = out_channels
+
+        # Standard Convolution
+        self.conv = nn.Conv2d(in_channels, out_channels, kernel_size, padding=kernel_size // 2)
+
+        # Adaptive network to modify the weights
+        self.adapt_net = nn.Sequential(
+            nn.Conv2d(in_channels, 64, 1),
+            nn.ReLU(),
+            nn.Conv2d(64, out_channels * in_channels * kernel_size * kernel_size, 1)
+        )
+
+    def forward(self, x):
+        # Generate adaptive weights
+        adaptive_weights = self.adapt_net(x)
+
+        # Reshape adaptive weights to match the convolution weights shape
+        adaptive_weights = adaptive_weights.view(-1, self.in_channels, self.kernel_size, self.kernel_size)
+
+        # Apply adaptive convolution
+        output = F.conv2d(x, adaptive_weights, padding=self.kernel_size // 2)
+        return output
+
 
 
 class DensenetEncoder(nn.Module):

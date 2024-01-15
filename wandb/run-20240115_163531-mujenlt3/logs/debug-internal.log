@@ -1,0 +1,208 @@
+2024-01-15 16:35:31,251 INFO    StreamThr :3304710 [internal.py:wandb_internal():86] W&B internal server running at pid: 3304710, started at: 2024-01-15 16:35:31.250087
+2024-01-15 16:35:31,253 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: status
+2024-01-15 16:35:31,260 INFO    WriterThread:3304710 [datastore.py:open_for_write():87] open: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/run-mujenlt3.wandb
+2024-01-15 16:35:31,260 DEBUG   SenderThread:3304710 [sender.py:send():382] send: header
+2024-01-15 16:35:31,278 DEBUG   SenderThread:3304710 [sender.py:send():382] send: run
+2024-01-15 16:35:31,549 INFO    SenderThread:3304710 [dir_watcher.py:__init__():211] watching files in: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files
+2024-01-15 16:35:31,550 INFO    SenderThread:3304710 [sender.py:_start_run_threads():1136] run started: mujenlt3 with start time 1705358131.251963
+2024-01-15 16:35:31,556 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: check_version
+2024-01-15 16:35:31,556 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: check_version
+2024-01-15 16:35:31,675 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: run_start
+2024-01-15 16:35:31,684 DEBUG   HandlerThread:3304710 [system_info.py:__init__():27] System info init
+2024-01-15 16:35:31,684 DEBUG   HandlerThread:3304710 [system_info.py:__init__():42] System info init done
+2024-01-15 16:35:31,684 INFO    HandlerThread:3304710 [system_monitor.py:start():194] Starting system monitor
+2024-01-15 16:35:31,684 INFO    SystemMonitor:3304710 [system_monitor.py:_start():158] Starting system asset monitoring threads
+2024-01-15 16:35:31,684 INFO    HandlerThread:3304710 [system_monitor.py:probe():214] Collecting system info
+2024-01-15 16:35:31,687 INFO    SystemMonitor:3304710 [interfaces.py:start():190] Started cpu monitoring
+2024-01-15 16:35:31,688 INFO    SystemMonitor:3304710 [interfaces.py:start():190] Started disk monitoring
+2024-01-15 16:35:31,689 INFO    SystemMonitor:3304710 [interfaces.py:start():190] Started gpu monitoring
+2024-01-15 16:35:31,690 INFO    SystemMonitor:3304710 [interfaces.py:start():190] Started memory monitoring
+2024-01-15 16:35:31,692 INFO    SystemMonitor:3304710 [interfaces.py:start():190] Started network monitoring
+2024-01-15 16:35:31,722 DEBUG   HandlerThread:3304710 [system_info.py:probe():151] Probing system
+2024-01-15 16:35:31,723 DEBUG   HandlerThread:3304710 [system_info.py:_probe_git():136] Probing git
+2024-01-15 16:35:31,726 DEBUG   HandlerThread:3304710 [system_info.py:_probe_git():144] Probing git done
+2024-01-15 16:35:31,726 DEBUG   HandlerThread:3304710 [system_info.py:probe():199] Probing system done
+2024-01-15 16:35:31,726 DEBUG   HandlerThread:3304710 [system_monitor.py:probe():223] {'os': 'Linux-5.15.0-73-generic-x86_64-with-glibc2.35', 'python': '3.10.5', 'heartbeatAt': '2024-01-15T22:35:31.722928', 'startedAt': '2024-01-15T22:35:31.245368', 'docker': None, 'cuda': None, 'args': ('--mmanet', '--max_epoch', '500', '--seg_ild', '--freeze_all', '--dataparallel', '--data_dir', '/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches_AMP/data', '--backbone_class', 'densenet161', '--model_path', '/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches_AMP/checkpoint/file.pth', '--deform_expan', '2.00', '--unet', '--local_train', '1'), 'state': 'running', 'program': '/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/Train.py', 'codePathLocal': 'Train.py', 'codePath': 'Train.py', 'git': {'remote': 'git@github.com:rmf3mc/mmanet.git', 'commit': 'e78b3fd1b87d5b06c76dc0aa9a7219d6a1914344'}, 'email': 'ramytrm@gmail.com', 'root': '/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches', 'host': 'pupil', 'username': 'rmf3mc', 'executable': '/home/pupil/rmf3mc/.conda/envs/UnetCRF2/bin/python', 'cpu_count': 16, 'cpu_count_logical': 24, 'cpu_freq': {'current': 3059.611666666666, 'min': 800.0, 'max': 4716.666666666667}, 'cpu_freq_per_core': [{'current': 1071.294, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 1959.386, 'min': 800.0, 'max': 5200.0}, {'current': 3200.0, 'min': 800.0, 'max': 5200.0}, {'current': 3200.0, 'min': 800.0, 'max': 5200.0}, {'current': 3200.0, 'min': 800.0, 'max': 5200.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}], 'disk': {'/': {'total': 878.0525245666504, 'used': 177.39657592773438}}, 'gpu': 'NVIDIA GeForce RTX 3090', 'gpu_count': 1, 'gpu_devices': [{'name': 'NVIDIA GeForce RTX 3090', 'memory_total': 25769803776}], 'memory': {'total': 31.04662322998047}}
+2024-01-15 16:35:31,726 INFO    HandlerThread:3304710 [system_monitor.py:probe():224] Finished collecting system info
+2024-01-15 16:35:31,726 INFO    HandlerThread:3304710 [system_monitor.py:probe():227] Publishing system info
+2024-01-15 16:35:31,726 DEBUG   HandlerThread:3304710 [system_info.py:_save_conda():208] Saving list of conda packages installed into the current environment
+2024-01-15 16:35:32,550 INFO    Thread-12 :3304710 [dir_watcher.py:_on_file_created():271] file/dir created: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/conda-environment.yaml
+2024-01-15 16:35:35,274 DEBUG   HandlerThread:3304710 [system_info.py:_save_conda():220] Saving conda packages done
+2024-01-15 16:35:35,274 INFO    HandlerThread:3304710 [system_monitor.py:probe():229] Finished publishing system info
+2024-01-15 16:35:35,371 DEBUG   SenderThread:3304710 [sender.py:send():382] send: files
+2024-01-15 16:35:35,371 INFO    SenderThread:3304710 [sender.py:_save_file():1403] saving file wandb-metadata.json with policy now
+2024-01-15 16:35:35,374 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: python_packages
+2024-01-15 16:35:35,374 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: python_packages
+2024-01-15 16:35:35,375 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-15 16:35:35,376 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-15 16:35:35,376 DEBUG   SenderThread:3304710 [sender.py:send():382] send: telemetry
+2024-01-15 16:35:35,376 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: stop_status
+2024-01-15 16:35:35,550 INFO    Thread-12 :3304710 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/conda-environment.yaml
+2024-01-15 16:35:35,550 INFO    Thread-12 :3304710 [dir_watcher.py:_on_file_created():271] file/dir created: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/wandb-metadata.json
+2024-01-15 16:35:35,551 INFO    Thread-12 :3304710 [dir_watcher.py:_on_file_created():271] file/dir created: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/requirements.txt
+2024-01-15 16:35:35,816 INFO    wandb-upload_0:3304710 [upload_job.py:push():131] Uploaded file /tmp/tmp_ckt9jjkwandb/zovy2k9m-wandb-metadata.json
+2024-01-15 16:35:36,551 INFO    Thread-12 :3304710 [dir_watcher.py:_on_file_created():271] file/dir created: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/output.log
+2024-01-15 16:35:36,567 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: status_report
+2024-01-15 16:35:38,551 INFO    Thread-12 :3304710 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/output.log
+2024-01-15 16:35:41,568 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: status_report
+2024-01-15 16:35:46,569 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: status_report
+2024-01-15 16:35:50,375 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-15 16:35:50,375 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: stop_status
+2024-01-15 16:35:50,416 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-15 16:35:52,059 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: status_report
+2024-01-15 16:35:54,558 INFO    Thread-12 :3304710 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/output.log
+2024-01-15 16:35:57,107 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: status_report
+2024-01-15 16:36:02,562 INFO    Thread-12 :3304710 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/output.log
+2024-01-15 16:36:02,959 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: status_report
+2024-01-15 16:36:03,563 INFO    Thread-12 :3304710 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/config.yaml
+2024-01-15 16:36:05,375 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-15 16:36:05,375 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-15 16:36:05,375 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: stop_status
+2024-01-15 16:36:06,685 DEBUG   SenderThread:3304710 [sender.py:send():382] send: exit
+2024-01-15 16:36:06,686 INFO    SenderThread:3304710 [sender.py:send_exit():589] handling exit code: 255
+2024-01-15 16:36:06,686 INFO    SenderThread:3304710 [sender.py:send_exit():591] handling runtime: 35
+2024-01-15 16:36:06,686 INFO    SenderThread:3304710 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-15 16:36:06,686 INFO    SenderThread:3304710 [sender.py:send_exit():597] send defer
+2024-01-15 16:36:06,687 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: defer
+2024-01-15 16:36:06,687 INFO    HandlerThread:3304710 [handler.py:handle_request_defer():172] handle defer: 0
+2024-01-15 16:36:06,687 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: defer
+2024-01-15 16:36:06,687 INFO    SenderThread:3304710 [sender.py:send_request_defer():613] handle sender defer: 0
+2024-01-15 16:36:06,687 INFO    SenderThread:3304710 [sender.py:transition_state():617] send defer: 1
+2024-01-15 16:36:06,687 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: defer
+2024-01-15 16:36:06,687 INFO    HandlerThread:3304710 [handler.py:handle_request_defer():172] handle defer: 1
+2024-01-15 16:36:06,687 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: defer
+2024-01-15 16:36:06,687 INFO    SenderThread:3304710 [sender.py:send_request_defer():613] handle sender defer: 1
+2024-01-15 16:36:06,687 INFO    SenderThread:3304710 [sender.py:transition_state():617] send defer: 2
+2024-01-15 16:36:06,688 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: defer
+2024-01-15 16:36:06,688 INFO    HandlerThread:3304710 [handler.py:handle_request_defer():172] handle defer: 2
+2024-01-15 16:36:06,688 INFO    HandlerThread:3304710 [system_monitor.py:finish():203] Stopping system monitor
+2024-01-15 16:36:06,688 INFO    HandlerThread:3304710 [interfaces.py:finish():202] Joined cpu monitor
+2024-01-15 16:36:06,688 INFO    HandlerThread:3304710 [interfaces.py:finish():202] Joined disk monitor
+2024-01-15 16:36:06,688 DEBUG   SystemMonitor:3304710 [system_monitor.py:_start():172] Starting system metrics aggregation loop
+2024-01-15 16:36:06,688 DEBUG   SystemMonitor:3304710 [system_monitor.py:_start():179] Finished system metrics aggregation loop
+2024-01-15 16:36:06,688 DEBUG   SystemMonitor:3304710 [system_monitor.py:_start():183] Publishing last batch of metrics
+2024-01-15 16:36:06,733 INFO    HandlerThread:3304710 [interfaces.py:finish():202] Joined gpu monitor
+2024-01-15 16:36:06,733 INFO    HandlerThread:3304710 [interfaces.py:finish():202] Joined memory monitor
+2024-01-15 16:36:06,733 INFO    HandlerThread:3304710 [interfaces.py:finish():202] Joined network monitor
+2024-01-15 16:36:06,733 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: defer
+2024-01-15 16:36:06,734 INFO    SenderThread:3304710 [sender.py:send_request_defer():613] handle sender defer: 2
+2024-01-15 16:36:06,734 INFO    SenderThread:3304710 [sender.py:transition_state():617] send defer: 3
+2024-01-15 16:36:06,734 DEBUG   SenderThread:3304710 [sender.py:send():382] send: stats
+2024-01-15 16:36:06,734 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: defer
+2024-01-15 16:36:06,734 INFO    HandlerThread:3304710 [handler.py:handle_request_defer():172] handle defer: 3
+2024-01-15 16:36:06,734 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: defer
+2024-01-15 16:36:06,734 INFO    SenderThread:3304710 [sender.py:send_request_defer():613] handle sender defer: 3
+2024-01-15 16:36:06,734 INFO    SenderThread:3304710 [sender.py:transition_state():617] send defer: 4
+2024-01-15 16:36:06,734 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: defer
+2024-01-15 16:36:06,734 INFO    HandlerThread:3304710 [handler.py:handle_request_defer():172] handle defer: 4
+2024-01-15 16:36:06,734 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: defer
+2024-01-15 16:36:06,734 INFO    SenderThread:3304710 [sender.py:send_request_defer():613] handle sender defer: 4
+2024-01-15 16:36:06,734 INFO    SenderThread:3304710 [sender.py:transition_state():617] send defer: 5
+2024-01-15 16:36:06,734 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: defer
+2024-01-15 16:36:06,734 INFO    HandlerThread:3304710 [handler.py:handle_request_defer():172] handle defer: 5
+2024-01-15 16:36:06,735 DEBUG   SenderThread:3304710 [sender.py:send():382] send: summary
+2024-01-15 16:36:06,735 INFO    SenderThread:3304710 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-15 16:36:06,735 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: defer
+2024-01-15 16:36:06,735 INFO    SenderThread:3304710 [sender.py:send_request_defer():613] handle sender defer: 5
+2024-01-15 16:36:06,735 INFO    SenderThread:3304710 [sender.py:transition_state():617] send defer: 6
+2024-01-15 16:36:06,735 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: defer
+2024-01-15 16:36:06,735 INFO    HandlerThread:3304710 [handler.py:handle_request_defer():172] handle defer: 6
+2024-01-15 16:36:06,735 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: defer
+2024-01-15 16:36:06,735 INFO    SenderThread:3304710 [sender.py:send_request_defer():613] handle sender defer: 6
+2024-01-15 16:36:06,735 INFO    SenderThread:3304710 [sender.py:transition_state():617] send defer: 7
+2024-01-15 16:36:06,735 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: status_report
+2024-01-15 16:36:06,735 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: defer
+2024-01-15 16:36:06,736 INFO    HandlerThread:3304710 [handler.py:handle_request_defer():172] handle defer: 7
+2024-01-15 16:36:06,736 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: defer
+2024-01-15 16:36:06,736 INFO    SenderThread:3304710 [sender.py:send_request_defer():613] handle sender defer: 7
+2024-01-15 16:36:07,565 INFO    Thread-12 :3304710 [dir_watcher.py:_on_file_created():271] file/dir created: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/wandb-summary.json
+2024-01-15 16:36:07,686 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: poll_exit
+2024-01-15 16:36:08,650 INFO    SenderThread:3304710 [sender.py:transition_state():617] send defer: 8
+2024-01-15 16:36:08,650 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: poll_exit
+2024-01-15 16:36:08,650 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: defer
+2024-01-15 16:36:08,650 INFO    HandlerThread:3304710 [handler.py:handle_request_defer():172] handle defer: 8
+2024-01-15 16:36:08,650 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: defer
+2024-01-15 16:36:08,650 INFO    SenderThread:3304710 [sender.py:send_request_defer():613] handle sender defer: 8
+2024-01-15 16:36:08,650 INFO    SenderThread:3304710 [job_builder.py:build():296] Attempting to build job artifact
+2024-01-15 16:36:08,651 INFO    SenderThread:3304710 [job_builder.py:_get_source_type():426] is repo sourced job
+2024-01-15 16:36:08,677 INFO    SenderThread:3304710 [job_builder.py:build():402] adding wandb-job metadata file
+2024-01-15 16:36:08,688 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: poll_exit
+2024-01-15 16:36:08,692 INFO    SenderThread:3304710 [sender.py:transition_state():617] send defer: 9
+2024-01-15 16:36:08,692 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: poll_exit
+2024-01-15 16:36:08,693 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: defer
+2024-01-15 16:36:08,693 INFO    HandlerThread:3304710 [handler.py:handle_request_defer():172] handle defer: 9
+2024-01-15 16:36:08,694 DEBUG   SenderThread:3304710 [sender.py:send():382] send: artifact
+2024-01-15 16:36:09,404 INFO    wandb-upload_0:3304710 [upload_job.py:push():89] Uploaded file /home/pupil/rmf3mc/.local/share/wandb/artifacts/staging/tmpe9ftx0rd
+2024-01-15 16:36:09,412 INFO    wandb-upload_1:3304710 [upload_job.py:push():89] Uploaded file /home/pupil/rmf3mc/.local/share/wandb/artifacts/staging/tmpbi23rucg
+2024-01-15 16:36:09,566 INFO    Thread-12 :3304710 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/output.log
+2024-01-15 16:36:09,689 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: poll_exit
+2024-01-15 16:36:10,091 INFO    SenderThread:3304710 [sender.py:send_artifact():1494] sent artifact job-git_github.com_rmf3mc_mmanet.git_Train.py - {'id': 'QXJ0aWZhY3Q6NjkxNTc3MDAz', 'state': 'PENDING', 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjEyOTc0MzA2Ng==', 'latestArtifact': {'id': 'QXJ0aWZhY3Q6Njg5NDI4NjQ2', 'versionIndex': 6}}}
+2024-01-15 16:36:10,091 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: defer
+2024-01-15 16:36:10,091 INFO    SenderThread:3304710 [sender.py:send_request_defer():613] handle sender defer: 9
+2024-01-15 16:36:10,091 INFO    SenderThread:3304710 [dir_watcher.py:finish():358] shutting down directory watcher
+2024-01-15 16:36:10,567 INFO    SenderThread:3304710 [dir_watcher.py:finish():388] scan: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files
+2024-01-15 16:36:10,568 INFO    SenderThread:3304710 [dir_watcher.py:finish():402] scan save: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/wandb-metadata.json wandb-metadata.json
+2024-01-15 16:36:10,568 INFO    SenderThread:3304710 [dir_watcher.py:finish():402] scan save: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/output.log output.log
+2024-01-15 16:36:10,568 INFO    SenderThread:3304710 [dir_watcher.py:finish():402] scan save: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/config.yaml config.yaml
+2024-01-15 16:36:10,569 INFO    SenderThread:3304710 [dir_watcher.py:finish():402] scan save: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/conda-environment.yaml conda-environment.yaml
+2024-01-15 16:36:10,569 INFO    SenderThread:3304710 [dir_watcher.py:finish():402] scan save: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/wandb-summary.json wandb-summary.json
+2024-01-15 16:36:10,569 INFO    SenderThread:3304710 [dir_watcher.py:finish():402] scan save: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/requirements.txt requirements.txt
+2024-01-15 16:36:10,569 INFO    SenderThread:3304710 [sender.py:transition_state():617] send defer: 10
+2024-01-15 16:36:10,569 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: poll_exit
+2024-01-15 16:36:10,570 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: defer
+2024-01-15 16:36:10,571 INFO    HandlerThread:3304710 [handler.py:handle_request_defer():172] handle defer: 10
+2024-01-15 16:36:10,581 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: defer
+2024-01-15 16:36:10,581 INFO    SenderThread:3304710 [sender.py:send_request_defer():613] handle sender defer: 10
+2024-01-15 16:36:10,581 INFO    SenderThread:3304710 [file_pusher.py:finish():175] shutting down file pusher
+2024-01-15 16:36:10,708 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: poll_exit
+2024-01-15 16:36:10,709 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: poll_exit
+2024-01-15 16:36:10,800 INFO    wandb-upload_2:3304710 [upload_job.py:push():131] Uploaded file /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/config.yaml
+2024-01-15 16:36:10,917 INFO    wandb-upload_1:3304710 [upload_job.py:push():131] Uploaded file /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/conda-environment.yaml
+2024-01-15 16:36:10,926 INFO    wandb-upload_4:3304710 [upload_job.py:push():131] Uploaded file /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/requirements.txt
+2024-01-15 16:36:10,928 INFO    wandb-upload_0:3304710 [upload_job.py:push():131] Uploaded file /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/output.log
+2024-01-15 16:36:10,934 INFO    wandb-upload_3:3304710 [upload_job.py:push():131] Uploaded file /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/files/wandb-summary.json
+2024-01-15 16:36:11,135 INFO    Thread-11 (_thread_body):3304710 [sender.py:transition_state():617] send defer: 11
+2024-01-15 16:36:11,135 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: defer
+2024-01-15 16:36:11,135 INFO    HandlerThread:3304710 [handler.py:handle_request_defer():172] handle defer: 11
+2024-01-15 16:36:11,136 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: defer
+2024-01-15 16:36:11,137 INFO    SenderThread:3304710 [sender.py:send_request_defer():613] handle sender defer: 11
+2024-01-15 16:36:11,137 INFO    SenderThread:3304710 [file_pusher.py:join():181] waiting for file pusher
+2024-01-15 16:36:11,137 INFO    SenderThread:3304710 [sender.py:transition_state():617] send defer: 12
+2024-01-15 16:36:11,137 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: defer
+2024-01-15 16:36:11,138 INFO    HandlerThread:3304710 [handler.py:handle_request_defer():172] handle defer: 12
+2024-01-15 16:36:11,138 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: defer
+2024-01-15 16:36:11,139 INFO    SenderThread:3304710 [sender.py:send_request_defer():613] handle sender defer: 12
+2024-01-15 16:36:11,139 INFO    SenderThread:3304710 [file_stream.py:finish():595] file stream finish called
+2024-01-15 16:36:11,209 INFO    SenderThread:3304710 [file_stream.py:finish():599] file stream finish is done
+2024-01-15 16:36:11,209 INFO    SenderThread:3304710 [sender.py:transition_state():617] send defer: 13
+2024-01-15 16:36:11,210 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: defer
+2024-01-15 16:36:11,210 INFO    HandlerThread:3304710 [handler.py:handle_request_defer():172] handle defer: 13
+2024-01-15 16:36:11,211 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: defer
+2024-01-15 16:36:11,211 INFO    SenderThread:3304710 [sender.py:send_request_defer():613] handle sender defer: 13
+2024-01-15 16:36:11,211 INFO    SenderThread:3304710 [sender.py:transition_state():617] send defer: 14
+2024-01-15 16:36:11,211 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: defer
+2024-01-15 16:36:11,212 INFO    HandlerThread:3304710 [handler.py:handle_request_defer():172] handle defer: 14
+2024-01-15 16:36:11,213 DEBUG   SenderThread:3304710 [sender.py:send():382] send: final
+2024-01-15 16:36:11,213 DEBUG   SenderThread:3304710 [sender.py:send():382] send: footer
+2024-01-15 16:36:11,213 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: defer
+2024-01-15 16:36:11,213 INFO    SenderThread:3304710 [sender.py:send_request_defer():613] handle sender defer: 14
+2024-01-15 16:36:11,214 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: poll_exit
+2024-01-15 16:36:11,215 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: poll_exit
+2024-01-15 16:36:11,217 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: poll_exit
+2024-01-15 16:36:11,218 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: poll_exit
+2024-01-15 16:36:11,218 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: server_info
+2024-01-15 16:36:11,220 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: server_info
+2024-01-15 16:36:11,220 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: get_summary
+2024-01-15 16:36:11,226 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: sampled_history
+2024-01-15 16:36:11,227 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-15 16:36:11,228 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: job_info
+2024-01-15 16:36:11,280 DEBUG   SenderThread:3304710 [sender.py:send_request():409] send_request: job_info
+2024-01-15 16:36:11,280 INFO    MainThread:3304710 [wandb_run.py:_footer_history_summary_info():3857] rendering history
+2024-01-15 16:36:11,281 INFO    MainThread:3304710 [wandb_run.py:_footer_history_summary_info():3889] rendering summary
+2024-01-15 16:36:11,281 INFO    MainThread:3304710 [wandb_run.py:_footer_sync_info():3816] logging synced files
+2024-01-15 16:36:11,282 DEBUG   HandlerThread:3304710 [handler.py:handle_request():146] handle_request: shutdown
+2024-01-15 16:36:11,282 INFO    HandlerThread:3304710 [handler.py:finish():869] shutting down handler
+2024-01-15 16:36:12,229 INFO    WriterThread:3304710 [datastore.py:close():296] close: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/wandb/run-20240115_163531-mujenlt3/run-mujenlt3.wandb
+2024-01-15 16:36:12,280 INFO    SenderThread:3304710 [sender.py:finish():1572] shutting down sender
+2024-01-15 16:36:12,280 INFO    SenderThread:3304710 [file_pusher.py:finish():175] shutting down file pusher
+2024-01-15 16:36:12,281 INFO    SenderThread:3304710 [file_pusher.py:join():181] waiting for file pusher
