@@ -198,7 +198,7 @@ import wandb
 
 run=wandb.init(
     # set the wandb project where this run will be logged
-    project="icip24-segmentation",
+    project="icip24-segmentation-differ_rect_layers",
     entity="ramytrm",
     group=name,
     

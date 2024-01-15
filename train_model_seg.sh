@@ -49,73 +49,16 @@ case $ARG in
         $BASE_CMD    --fsds    --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 2.00 --unet $Training_MC
         ;;
 
-
     3)
-        $BASE_CMD              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 2.5 --unet $Training_MC
+        $BASE_CMD              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model  --deform_expan 3.00 --unet $Training_MC
         ;;
 
  
     4)
-        $BASE_CMD  --fsds      --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 2.5 --unet $Training_MC
+        $BASE_CMD    --fsds    --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 3.00 --unet $Training_MC
         ;;
-
-
-    5)
-        $BASE_CMD              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 3.00 --unet $Training_MC
-        ;;
-
- 
-    6)
-        $BASE_CMD  --fsds      --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 3.00 --unet $Training_MC
-        ;;
-
-
-    7)
-        $BASE_CMD              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 3.50 --unet $Training_MC
-        ;;
-
- 
-    8)
-        $BASE_CMD  --fsds      --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 3.50 --unet $Training_MC
-        ;;
-
-
-    9)
-        $BASE_CMD              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 4.00 --unet $Training_MC
-        ;;
-
- 
-    10)
-        $BASE_CMD  --fsds      --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 4.00 --unet $Training_MC
-        ;;
-
-
-    11)
-        $BASE_CMD            --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 4.50 --unet $Training_MC
-        ;;
-
- 
-    12)
-        $BASE_CMD --fsds     --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 4.5 --unet $Training_MC
-        ;;
-
     
-    13)
-        $BASE_CMD            --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 5.00 --unet $Training_MC
-        ;;
-
  
-    14)
-        $BASE_CMD            --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 1.00 --unet $Training_MC
-        ;;
-
-    15)
-        $BASE_CMD --fsds     --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 1.00 --unet $Training_MC
-        ;;
-
-    16)
-        $BASE_CMD --fsds     --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 1.50 --unet $Training_MC
-        ;;
 
     *)
         echo "Invalid argument. Please provide a number between 1 and 10."
