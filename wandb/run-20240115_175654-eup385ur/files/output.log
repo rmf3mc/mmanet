@@ -1,0 +1,80 @@
+Batch_size 8
+MANet False
+MMANet True
+mask_guided False
+seg_included True
+cls_included False
+freeze_all True
+Full-scale Deep Supervision False
+Unet True
+deform_expan 2.0
+Initialized datatset with 800 images.
+Initialized datatset with 400 images.
+2.8239939212799072
+self.seg_included: True
+last 2208
+freeze layers:
+**********************************
+12
+0 torch.Size([1, 96, 112, 112])
+1 torch.Size([1, 96, 112, 112])
+2 torch.Size([1, 96, 112, 112])
+3 torch.Size([1, 96, 56, 56])
+4 torch.Size([1, 384, 56, 56])
+5 torch.Size([1, 192, 28, 28])
+6 torch.Size([1, 768, 28, 28])
+7 torch.Size([1, 384, 14, 14])
+8 torch.Size([1, 2112, 14, 14])
+9 torch.Size([1, 1056, 7, 7])
+10 torch.Size([1, 2208, 7, 7])
+11 torch.Size([1, 2208, 7, 7])
+************************
+Down sample at [0, 3, 5, 7, 9]
+Number of out channels [96, 384, 768, 2112, 2208]
+From_Layer:0 to_Layer:2
+From_Layer:3 to_Layer:4
+From_Layer:5 to_Layer:6
+From_Layer:7 to_Layer:8
+From_Layer:9 to_End
+********************
+out_channels 96
+out_channels 96
+out_channels 384
+out_channels 768
+out_channels 2112
+Loading weights
+model.seg_included True
+model.MMANet True
+model.MANet False
+Total parameters in the model: 3246.994383
+Epoch: 0
+Traceback (most recent call last):
+  File "/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/Train.py", line 679, in <module>
+    iou,train_acc,train_ce_loss= train_epoch_Seg(epoch)
+  File "/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/Train.py", line 373, in train_epoch_Seg
+    outputs = net(inputs)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torch/nn/parallel/data_parallel.py", line 166, in forward
+    return self.module(*inputs[0], **kwargs[0])
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/backboneModels.py", line 220, in forward
+    Encoder_outputs = self.get_encoder_ops(x)
+  File "/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/backboneModels.py", line 251, in get_encoder_ops
+    adapt_3=self.adaptive_layers_3[str(i)](x)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/backboneModels.py", line 303, in forward
+    adaptive_weights = self.adapt_net(x)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torch/nn/modules/container.py", line 139, in forward
+    input = module(input)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 457, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 453, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+RuntimeError: CUDA out of memory. Tried to allocate 15.50 GiB (GPU 0; 23.69 GiB total capacity; 12.87 GiB already allocated; 8.41 GiB free; 13.07 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF

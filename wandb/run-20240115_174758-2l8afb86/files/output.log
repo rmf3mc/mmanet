@@ -1,0 +1,50 @@
+Batch_size 8
+MANet False
+MMANet True
+mask_guided False
+seg_included True
+cls_included False
+freeze_all True
+Full-scale Deep Supervision False
+Unet True
+deform_expan 2.0
+Initialized datatset with 800 images.
+Initialized datatset with 400 images.
+2.831145763397217
+self.seg_included: True
+last 2208
+freeze layers:
+**********************************
+12
+0 torch.Size([1, 96, 112, 112])
+1 torch.Size([1, 96, 112, 112])
+2 torch.Size([1, 96, 112, 112])
+3 torch.Size([1, 96, 56, 56])
+4 torch.Size([1, 384, 56, 56])
+5 torch.Size([1, 192, 28, 28])
+6 torch.Size([1, 768, 28, 28])
+7 torch.Size([1, 384, 14, 14])
+8 torch.Size([1, 2112, 14, 14])
+9 torch.Size([1, 1056, 7, 7])
+10 torch.Size([1, 2208, 7, 7])
+11 torch.Size([1, 2208, 7, 7])
+************************
+Down sample at [0, 3, 5, 7, 9]
+Number of out channels [96, 384, 768, 2112, 2208]
+From_Layer:0 to_Layer:2
+From_Layer:3 to_Layer:4
+From_Layer:5 to_Layer:6
+From_Layer:7 to_Layer:8
+From_Layer:9 to_End
+********************
+out_channels 96
+out_channels 96
+out_channels 384
+out_channels 768
+out_channels 2112
+Traceback (most recent call last):
+  File "/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/Train.py", line 263, in <module>
+    model=MMANET(backbone_name=model_name,num_classes=num_classes,MANet=MANet,MMANet=MMANet,mask_guided=mask_guided,seg_included=seg_ild,freeze_all=freeze_all,Unet=args.unet,deform_expan=args.deform_expan)
+  File "/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/backboneModels.py", line 118, in __init__
+    max_mean_layer_outchannels = no_outputs_ch[i-1]*(deform_expan-1) - np.sum(all_out_channels)
+NameError: name 'np' is not defined

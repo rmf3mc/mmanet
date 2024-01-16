@@ -1,0 +1,186 @@
+{
+    "os": "Linux-5.15.0-73-generic-x86_64-with-glibc2.35",
+    "python": "3.10.5",
+    "heartbeatAt": "2024-01-15T23:47:59.286810",
+    "startedAt": "2024-01-15T23:47:58.899248",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--mmanet",
+        "--max_epoch",
+        "500",
+        "--seg_ild",
+        "--freeze_all",
+        "--dataparallel",
+        "--data_dir",
+        "/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches_AMP/data",
+        "--backbone_class",
+        "densenet161",
+        "--model_path",
+        "/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches_AMP/checkpoint/file.pth",
+        "--deform_expan",
+        "2.00",
+        "--unet",
+        "--local_train",
+        "1"
+    ],
+    "state": "running",
+    "program": "/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/Train.py",
+    "codePathLocal": "Train.py",
+    "codePath": "Train.py",
+    "git": {
+        "remote": "git@github.com:rmf3mc/mmanet.git",
+        "commit": "bb1147a614a1c499da1c0d58acb43432416afa89"
+    },
+    "email": "ramytrm@gmail.com",
+    "root": "/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches",
+    "host": "pupil",
+    "username": "rmf3mc",
+    "executable": "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/bin/python",
+    "cpu_count": 16,
+    "cpu_count_logical": 24,
+    "cpu_freq": {
+        "current": 3103.065,
+        "min": 800.0,
+        "max": 4716.666666666667
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 921.009,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5200.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5200.0
+        },
+        {
+            "current": 1119.344,
+            "min": 800.0,
+            "max": 5200.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5200.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 3900.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 878.0525245666504,
+            "used": 177.39794540405273
+        }
+    },
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce RTX 3090",
+            "memory_total": 25769803776
+        }
+    ],
+    "memory": {
+        "total": 31.04662322998047
+    }
+}
