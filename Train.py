@@ -198,7 +198,7 @@ import wandb
 
 run=wandb.init(
     # set the wandb project where this run will be logged
-    project="icip24-segmentation-differ_rect_layers",
+    project="icip24-segmentation-attentiononthefiveoutps",
     entity="ramytrm",
     group=name,
     
@@ -440,7 +440,7 @@ def train_epoch_Seg(epoch):
     
     wandb.log({"Current Training Epoch": epoch,
                "Training IoU": averageIoU,
-               "Training Accuracy":accuracy})
+               "Training Accuracy":accuracy},step=epoch)
     train_total_losses.append(train_loss)
     train_iou.append(averageIoU)
     return averageIoU,accuracy,train_ce_loss
@@ -559,7 +559,7 @@ def test_epoch_Seg(epoch):
                "Current Testing IoU": averageIoU,
                "Overall Best Testing Iou":best_iou,
                "Current Testing Accuracy":accuracy,
-               "Best Testing Accuracy": best_acc})
+               "Best Testing Accuracy": best_acc},step=epoch)
 
         
 
@@ -595,7 +595,7 @@ def check_seg_performance(iou,curr_test_iou,test_acc,net,epoch,end,start,model_p
         
     wandb.log({"Best Testing IoU BOT": best_test_iou,
                "Best Testing Accuracy BOT":Best_test_acc_BOT,
-               "Elapsed Time":end-start})
+               "Elapsed Time":end-start},step=epoch)
 
 
             
