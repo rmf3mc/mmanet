@@ -253,8 +253,8 @@ print(end-start)
 # In[ ]:
 
 
-trainloader = DataLoader(train, batch_size=batchsize, shuffle=True)
-testloader = DataLoader(test, batch_size=batchsize, shuffle=False)
+trainloader = DataLoader(train, batch_size=batchsize, shuffle=True, num_workers=4)
+testloader = DataLoader(test, batch_size=batchsize, shuffle=False, num_workers=4)
 
 
 # In[ ]:
