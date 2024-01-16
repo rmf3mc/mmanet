@@ -88,60 +88,66 @@ class MMANET(nn.Module):
 
             self.center=nn.Conv2d(int(shape*self.deform_expan), shape, kernel_size=3, padding=1).to('cuda')
 
+
+
             self.decoder_layers=nn.ModuleDict()
+
+            self.atten_layers =nn.ModuleDict()
             
             if self.Unet:
                 for i in range(1,6):
                     self.decoder_layers[str(i)]=UNetDecoderLayerModule2(lvl=i,no_channels=no_outputs_ch,no_classes=self.no_classes,deform_expan=self.deform_expan)
+                    self.atten_layers[str(i)]=nn.Conv2d( 2 , 1, kernel_size=3, padding=1).to('cuda')
                     #self.decoder_layers[str(i)]=UNetDecoderLayerModule(lvl=i,no_channels=no_outputs_ch,no_classes=self.no_classes)
             else:
                 for i in range(1,6):
                     self.decoder_layers[str(i)]=UNet3PlusDecoderLayerModule(lvl=i,no_channels=no_outputs_ch,no_classes=self.no_classes)
 
 
-            self.deconv_layers_3= nn.ModuleDict()
-            self.deconv_layers_5= nn.ModuleDict()
-            self.deconv_layers_7= nn.ModuleDict()
+
+            # self.deconv_layers_3= nn.ModuleDict()
+            # self.deconv_layers_5= nn.ModuleDict()
+            # self.deconv_layers_7= nn.ModuleDict()
 
 
-            self.atrous_conv_layers_2=nn.ModuleDict()
-            self.atrous_conv_layers_3=nn.ModuleDict()
-            self.atrous_conv_layers_4=nn.ModuleDict()
-            self.atrous_conv_layers_5=nn.ModuleDict()
+            # self.atrous_conv_layers_2=nn.ModuleDict()
+            # self.atrous_conv_layers_3=nn.ModuleDict()
+            # self.atrous_conv_layers_4=nn.ModuleDict()
+            # self.atrous_conv_layers_5=nn.ModuleDict()
 
 
-            self.adaptive_layers_3=nn.ModuleDict()
-            self.adaptive_layers_5=nn.ModuleDict()
+            # self.adaptive_layers_3=nn.ModuleDict()
+            # self.adaptive_layers_5=nn.ModuleDict()
 
-            self.max_min_expan_layers=nn.ModuleDict()
+            # self.max_min_expan_layers=nn.ModuleDict()
 
 
 
             
-            for i in range(1,6):
-                all_out_channels=[int(no_outputs_ch[i-1]*(deform_expan-1)/8) for _ in range(7) ]
-                max_mean_layer_outchannels = int(no_outputs_ch[i-1]*(deform_expan-1) - np.sum(all_out_channels))
+            #for i in range(1,6):
+                # all_out_channels=[int(no_outputs_ch[i-1]*(deform_expan-1)/8) for _ in range(7) ]
+                # max_mean_layer_outchannels = int(no_outputs_ch[i-1]*(deform_expan-1) - np.sum(all_out_channels))
 
 
-                self.deconv_layers_3[str(i)]= Deform_Conv(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[0], kernel_size=3)
-                self.deconv_layers_5[str(i)]= Deform_Conv(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[1], kernel_size=5)
-                self.deconv_layers_7[str(i)]= Deform_Conv(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[2], kernel_size=7) 
-
-
-
-                self.atrous_conv_layers_2[str(i)]= nn.Conv2d(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[3], kernel_size=3, dilation=2, padding=2)
-                self.atrous_conv_layers_3[str(i)]= nn.Conv2d(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[4], kernel_size=3, dilation=3, padding=3)
-                self.atrous_conv_layers_4[str(i)]= nn.Conv2d(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[5], kernel_size=3, dilation=4, padding=4)
-                self.atrous_conv_layers_5[str(i)]= nn.Conv2d(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[6], kernel_size=3, dilation=5, padding=5)
+                # self.deconv_layers_3[str(i)]= Deform_Conv(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[0], kernel_size=3)
+                # self.deconv_layers_5[str(i)]= Deform_Conv(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[1], kernel_size=5)
+                # self.deconv_layers_7[str(i)]= Deform_Conv(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[2], kernel_size=7) 
 
 
 
+                # self.atrous_conv_layers_2[str(i)]= nn.Conv2d(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[3], kernel_size=3, dilation=2, padding=2)
+                # self.atrous_conv_layers_3[str(i)]= nn.Conv2d(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[4], kernel_size=3, dilation=3, padding=3)
+                # self.atrous_conv_layers_4[str(i)]= nn.Conv2d(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[5], kernel_size=3, dilation=4, padding=4)
+                # self.atrous_conv_layers_5[str(i)]= nn.Conv2d(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[6], kernel_size=3, dilation=5, padding=5)
 
-                # self.adaptive_layers_3[str(i)]=SpatiallyAdaptiveConv(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[5], kernel_size=3)
-                # self.adaptive_layers_5[str(i)]=SpatiallyAdaptiveConv(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[6], kernel_size=5)
 
 
-                self.max_min_expan_layers[str(i)]= nn.Conv2d(2,out_channels=max_mean_layer_outchannels,kernel_size=1)
+
+                # # self.adaptive_layers_3[str(i)]=SpatiallyAdaptiveConv(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[5], kernel_size=3)
+                # # self.adaptive_layers_5[str(i)]=SpatiallyAdaptiveConv(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[6], kernel_size=5)
+
+
+                # self.max_min_expan_layers[str(i)]= nn.Conv2d(2,out_channels=max_mean_layer_outchannels,kernel_size=1)
 
 
 
@@ -241,30 +247,30 @@ class MMANET(nn.Module):
         for i in range(1,6):
             x = self.Encoders[str(i)](x)
 
-            #fg_att=self.atten_layers[str(i)](torch.cat((torch.mean(x,dim=1).unsqueeze(1),torch.max(x,dim=1)[0].unsqueeze(1)),dim=1))
-            #fg_att=torch.sigmoid(fg_att)
-            #features=self.getAttFeats(fg_att,x)
+            fg_att=self.atten_layers[str(i)](torch.cat((torch.mean(x,dim=1).unsqueeze(1),torch.max(x,dim=1)[0].unsqueeze(1)),dim=1))
+            fg_att=torch.sigmoid(fg_att)
+            features=self.getAttFeats(fg_att,x)
 
-            mean_max=torch.cat((torch.mean(x,dim=1).unsqueeze(1),torch.max(x,dim=1)[0].unsqueeze(1)),dim=1)
+            # mean_max=torch.cat((torch.mean(x,dim=1).unsqueeze(1),torch.max(x,dim=1)[0].unsqueeze(1)),dim=1)
         
         
-            deform_3=self.deconv_layers_3[str(i)](x)
-            deform_5=self.deconv_layers_5[str(i)](x)
-            deform_7=self.deconv_layers_7[str(i)](x)
+            # deform_3=self.deconv_layers_3[str(i)](x)
+            # deform_5=self.deconv_layers_5[str(i)](x)
+            # deform_7=self.deconv_layers_7[str(i)](x)
 
 
-            atrous_2=self.atrous_conv_layers_2[str(i)](x)
-            atrous_3=self.atrous_conv_layers_3[str(i)](x)
-            atrous_4=self.atrous_conv_layers_4[str(i)](x)
-            atrous_5=self.atrous_conv_layers_5[str(i)](x)
+            # atrous_2=self.atrous_conv_layers_2[str(i)](x)
+            # atrous_3=self.atrous_conv_layers_3[str(i)](x)
+            # atrous_4=self.atrous_conv_layers_4[str(i)](x)
+            # atrous_5=self.atrous_conv_layers_5[str(i)](x)
 
 
-            # adapt_3=self.adaptive_layers_3[str(i)](x)
-            # adapt_5=self.adaptive_layers_5[str(i)](x)
+            # # adapt_3=self.adaptive_layers_3[str(i)](x)
+            # # adapt_5=self.adaptive_layers_5[str(i)](x)
 
-            mean_max_expan=self.max_min_expan_layers[str(i)](mean_max)
+            # mean_max_expan=self.max_min_expan_layers[str(i)](mean_max)
 
-            features=torch.cat((x,deform_3,deform_5,deform_7,atrous_2,atrous_3,atrous_4,atrous_5,mean_max_expan),dim=1)
+            # features=torch.cat((x,deform_3,deform_5,deform_7,atrous_2,atrous_3,atrous_4,atrous_5,mean_max_expan),dim=1)
             Encoder_outputs.append(features)
             #print(f'Layer no:{i}, input features:{x.shape}, out number of features: {features.shape}')
     
