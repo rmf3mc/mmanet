@@ -29,17 +29,18 @@ from leafvein2 import Leafvein
 from backboneModels import *
 from utils import *
 
+from MyModelSpace import MyModelSpace
 
 print('**End of Importing**')
 
 
-# In[2]:
-
-
-
-
-
 # In[ ]:
+
+
+
+
+
+# In[2]:
 
 
 ## reproducility
@@ -53,7 +54,7 @@ torch.cuda.manual_seed_all(seed)
 cudnn.benchmark = False 
 
 
-# In[2]:
+# In[3]:
 
 
 test_acc=[]
@@ -64,7 +65,7 @@ train_iou=[]
 test_iou=[]
 
 
-# In[12]:
+# In[4]:
 
 
 import argparse
@@ -140,7 +141,7 @@ model_name=args.backbone_class
 start_epoch=0
 
 
-# In[4]:
+# In[11]:
 
 
 if args.local_train==1:
@@ -148,6 +149,8 @@ if args.local_train==1:
     current_working_directory = '/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches_AMP/'
 else:
     current_working_directory = '/mnt/mywork/all_backbones/'
+    
+current_working_directory = '/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches_AMP/'
 print("Current Working Directory:", current_working_directory)
 
 name=get_folder_path(args)
@@ -191,14 +194,14 @@ if not os.path.exists(models_folder):
     os.makedirs(models_folder)
 
 
-# In[ ]:
+# In[12]:
 
 
 import wandb
 
 run=wandb.init(
     # set the wandb project where this run will be logged
-    project="icip24-segmentation-attentiononthefiveoutps",
+    project="icip24-nniexperiment",
     entity="ramytrm",
     group=name,
     
@@ -222,7 +225,7 @@ run=wandb.init(
 )
 
 
-# In[7]:
+# In[13]:
 
 
 print('\nBatch_size',args.batch_size)
@@ -240,7 +243,7 @@ print('Unet',args.unet)
 print('deform_expan',args.deform_expan)
 
 
-# In[ ]:
+# In[15]:
 
 
 start=time.time()
@@ -250,17 +253,24 @@ end=time.time()
 print(end-start)
 
 
-# In[ ]:
+# In[16]:
+
+
+import nni.nas.strategy as strategy
+search_strategy = strategy.Random()
+
+
+# In[17]:
 
 
 trainloader = DataLoader(train, batch_size=batchsize, shuffle=True)
 testloader = DataLoader(test, batch_size=batchsize, shuffle=False)
 
 
-# In[ ]:
+# In[19]:
 
 
-model=MMANET(backbone_name=model_name,num_classes=num_classes,MANet=MANet,MMANet=MMANet,mask_guided=mask_guided,seg_included=seg_ild,freeze_all=freeze_all,Unet=args.unet,deform_expan=args.deform_expan)
+model=MyModelSpace(backbone_name=model_name,num_classes=num_classes,MANet=MANet,MMANet=MMANet,mask_guided=mask_guided,seg_included=seg_ild,freeze_all=freeze_all,Unet=args.unet,deform_expan=args.deform_expan)
 
 
 if args.model_path is not None:
@@ -288,7 +298,7 @@ if args.seg_ild:
     model_path= f'{current_working_directory}/checkpoint/{name}-Segmentation-{formatted_datetime}.pth'
 
 
-# In[ ]:
+# In[20]:
 
 
 total_params = sum(p.numel() for p in model.parameters())
@@ -303,7 +313,7 @@ with open(accuracy_file_path, 'a') as f:
     f.write(f"Total parameters in the model: {total_params/1e+6}")
 
 
-# In[ ]:
+# In[21]:
 
 
 alpha1,alpha2,alpha3,alpha4,alpha5=0.95, 0.1/4, 0.1/8, 0.1/16, 0.1/32
@@ -319,7 +329,7 @@ optimizer = optim.SGD(net.parameters(), lr=args.lr, momentum=0.9, weight_decay=5
 scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.max_epoch)
 
 
-# In[ ]:
+# In[22]:
 
 
 input_size = [args.seg_size, args.seg_size]
@@ -446,7 +456,7 @@ def train_epoch_Seg(epoch):
     return averageIoU,accuracy,train_ce_loss
 
 
-# In[ ]:
+# In[23]:
 
 
 def test_epoch_Seg(epoch):
@@ -569,7 +579,7 @@ def test_epoch_Seg(epoch):
     return averageIoU,accuracy,test_ce_loss
 
 
-# In[ ]:
+# In[24]:
 
 
 def check_seg_performance(iou,curr_test_iou,test_acc,net,epoch,end,start,model_path,accuracy_file_path):
@@ -596,6 +606,7 @@ def check_seg_performance(iou,curr_test_iou,test_acc,net,epoch,end,start,model_p
     wandb.log({"Best Testing IoU BOT": best_test_iou,
                "Best Testing Accuracy BOT":Best_test_acc_BOT,
                "Elapsed Time":end-start},step=epoch)
+    
 
 
             
@@ -661,7 +672,7 @@ def check_performance(iou, curr_test_iou, train_ce_loss, test_acc, net, epoch, m
         f.write(f'Time Elapsed:{end-start}\n')
 
 
-# In[ ]:
+# In[25]:
 
 
 best_iou=0
@@ -674,21 +685,42 @@ min_loss=1e10
 test_acc=0
 Best_test_acc_BOT=0
 
-for epoch in range(start_epoch, args.max_epoch):
-    start = time.time()
-    iou,train_acc,train_ce_loss= train_epoch_Seg(epoch)
-    curr_test_iou,test_acc,test_ce_loss=test_epoch_Seg(epoch)
-    scheduler.step()
-    end = time.time()
-    
-    if seg_ild and not (cls_ild):
-        check_seg_performance(iou,curr_test_iou,test_acc,net,epoch,end,start,model_path,accuracy_file_path) 
-    elif not(seg_ild) and cls_ild:
-        check_class_performance(train_ce_loss, test_acc, curr_test_iou,net, epoch, model_path, accuracy_file_path, start, end)
-    else:
-        check_performance(iou, curr_test_iou, train_ce_loss, test_acc, net, epoch, model_path, accuracy_file_path, start, end)
-        
-        
+def evaluate_model(model=net):
+    for epoch in range(start_epoch, args.max_epoch):
+        start = time.time()
+        iou,train_acc,train_ce_loss= train_epoch_Seg(epoch)
+        curr_test_iou,test_acc,test_ce_loss=test_epoch_Seg(epoch)
+        scheduler.step()
+        end = time.time()
+
+        if seg_ild and not (cls_ild):
+            check_seg_performance(iou,curr_test_iou,test_acc,net,epoch,end,start,model_path,accuracy_file_path) 
+        elif not(seg_ild) and cls_ild:
+            check_class_performance(train_ce_loss, test_acc, curr_test_iou,net, epoch, model_path, accuracy_file_path, start, end)
+        else:
+            check_performance(iou, curr_test_iou, train_ce_loss, test_acc, net, epoch, model_path, accuracy_file_path, start, end)
+        nni.report_intermediate_result(best_test_iou)
+
+    nni.report_intermediate_result(best_test_iou)
+
+
+# In[26]:
+
+
+from nni.nas.evaluator import FunctionalEvaluator
+evaluator = FunctionalEvaluator(evaluate_model)
+
+
+# In[27]:
+
+
+from nni.nas.experiment import NasExperiment
+exp = NasExperiment(net, evaluator, search_strategy)
+
+exp.config.trial_gpu_number = 1
+exp.config.training_service.use_active_gpu = True
+
+exp.run(port=8081)
 
 
 # In[ ]:

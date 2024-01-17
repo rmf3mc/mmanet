@@ -18,13 +18,15 @@ from unet3 import *
 from utils import *
 import numpy as np
 
+import nni
+from nni.nas.nn.pytorch import LayerChoice, ModelSpace, MutableDropout, MutableLinear, MutableConv2d
 
 
 
 
-class MMANET(nn.Module):
+class Net(ModelSpace):
     def __init__ (self, backbone_name, num_classes,MANet=False,MMANet=True,mask_guided=False,seg_included=None,freeze_all=False,no_sig_classes=1,Unet=True,deform_expan=1):
-        super(MMANET, self).__init__()
+        super(Net, self).__init__()
         
         self.MANet=MANet
         self.MMANet=MMANet
@@ -119,7 +121,7 @@ class MMANET(nn.Module):
 
             
             for i in range(1,6):
-                all_out_channels=[int(no_outputs_ch[i-1]*(deform_expan-1)/8) for _ in range(7) ]
+                all_out_channels=[int(no_outputs_ch[i-1]/16) for _ in range(7) ]
                 max_mean_layer_outchannels = int(no_outputs_ch[i-1]*(deform_expan-1) - np.sum(all_out_channels))
 
 

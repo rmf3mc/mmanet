@@ -18,13 +18,15 @@ from unet3 import *
 from utils import *
 import numpy as np
 
+import nni
+from nni.nas.nn.pytorch import LayerChoice, ModelSpace, MutableDropout, MutableLinear, MutableConv2d
 
 
 
 
-class MMANET(nn.Module):
+class MyModelSpace(ModelSpace):
     def __init__ (self, backbone_name, num_classes,MANet=False,MMANet=True,mask_guided=False,seg_included=None,freeze_all=False,no_sig_classes=1,Unet=True,deform_expan=1):
-        super(MMANET, self).__init__()
+        super(MyModelSpace, self).__init__()
         
         self.MANet=MANet
         self.MMANet=MMANet
@@ -89,10 +91,59 @@ class MMANET(nn.Module):
             self.center=nn.Conv2d(int(shape*self.deform_expan), shape, kernel_size=3, padding=1).to('cuda')
 
             self.decoder_layers=nn.ModuleDict()
+
+
+            deconv_layers_3_out_channels = nni.choice('deconv_layers_3_out_channels', 
+                                                      [int(no_outputs_ch[i-1]/32), 
+                                                       int(no_outputs_ch[i-1]/16), 
+                                                       int(no_outputs_ch[i-1]/8)])
+
+            deconv_layers_5_out_channels = nni.choice('deconv_layers_5_out_channels', 
+                                                      [int(no_outputs_ch[i-1]/32), 
+                                                       int(no_outputs_ch[i-1]/16), 
+                                                       int(no_outputs_ch[i-1]/8)])
+
+            deconv_layers_7_out_channels = nni.choice('deconv_layers_7_out_channels', 
+                                                      [int(no_outputs_ch[i-1]/32), 
+                                                       int(no_outputs_ch[i-1]/16), 
+                                                       int(no_outputs_ch[i-1]/8)])
+
+            atrous_layers_2_out_channels = nni.choice('atrous_layers_2_out_channels', 
+                                                      [int(no_outputs_ch[i-1]/32), 
+                                                       int(no_outputs_ch[i-1]/16), 
+                                                       int(no_outputs_ch[i-1]/8)])
+
+            atrous_layers_3_out_channels = nni.choice('atrous_layers_3_out_channels', 
+                                                      [int(no_outputs_ch[i-1]/32), 
+                                                       int(no_outputs_ch[i-1]/16), 
+                                                       int(no_outputs_ch[i-1]/8)])
+
+            atrous_layers_4_out_channels = nni.choice('atrous_layers_4_out_channels', 
+                                                      [int(no_outputs_ch[i-1]/32), 
+                                                       int(no_outputs_ch[i-1]/16), 
+                                                       int(no_outputs_ch[i-1]/8)])
+
+            atrous_layers_5_out_channels = nni.choice('atrous_layers_5_out_channels', 
+                                                      [int(no_outputs_ch[i-1]/32), 
+                                                       int(no_outputs_ch[i-1]/16), 
+                                                       int(no_outputs_ch[i-1]/8)])
+
+
+            mean_max_out_channels = nni.choice('mean_max_out_channels', 
+                                                      [int(no_outputs_ch[i-1]/32), 
+                                                       int(no_outputs_ch[i-1]/16), 
+                                                       int(no_outputs_ch[i-1]/8)])
+
+
+
+
+            nni_number_channels= deconv_layers_3_out_channels +deconv_layers_5_out_channels + deconv_layers_7_out_channels + atrous_layers_2_out_channels + atrous_layers_3_out_channels +atrous_layers_4_out_channels +atrous_layers_5_out_channels + mean_max_out_channels
+
+            print(nni_number_channels)
             
             if self.Unet:
                 for i in range(1,6):
-                    self.decoder_layers[str(i)]=UNetDecoderLayerModule2(lvl=i,no_channels=no_outputs_ch,no_classes=self.no_classes,deform_expan=self.deform_expan)
+                    self.decoder_layers[str(i)]=UNetDecoderLayerModule3(lvl=i,no_channels=no_outputs_ch,nni_number_channels=nni_number_channels,no_classes=self.no_classes)
                     #self.decoder_layers[str(i)]=UNetDecoderLayerModule(lvl=i,no_channels=no_outputs_ch,no_classes=self.no_classes)
             else:
                 for i in range(1,6):
@@ -137,11 +188,40 @@ class MMANET(nn.Module):
 
 
 
-                # self.adaptive_layers_3[str(i)]=SpatiallyAdaptiveConv(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[5], kernel_size=3)
-                # self.adaptive_layers_5[str(i)]=SpatiallyAdaptiveConv(in_channels=no_outputs_ch[i-1], out_channels=all_out_channels[6], kernel_size=5)
+                self.deconv_layers_3[str(i)] = Deform_Conv(in_channels=no_outputs_ch[i-1], 
+                                                           out_channels=deconv_layers_3_out_channels, 
+                                                           kernel_size=3)
+
+                self.deconv_layers_5[str(i)] = Deform_Conv(in_channels=no_outputs_ch[i-1], 
+                                                           out_channels=deconv_layers_5_out_channels, 
+                                                           kernel_size=5)
+
+                self.deconv_layers_7[str(i)] = Deform_Conv(in_channels=no_outputs_ch[i-1], 
+                                                           out_channels=deconv_layers_7_out_channels, 
+                                                           kernel_size=7)
+
+                self.atrous_conv_layers_2[str(i)] = nn.Conv2d(in_channels=no_outputs_ch[i-1], 
+                                                              out_channels=atrous_layers_2_out_channels, 
+                                                              kernel_size=3, dilation=2, padding=2)
+
+                self.atrous_conv_layers_3[str(i)] = nn.Conv2d(in_channels=no_outputs_ch[i-1], 
+                                                              out_channels=atrous_layers_3_out_channels, 
+                                                              kernel_size=3, dilation=3, padding=3)
+
+                self.atrous_conv_layers_4[str(i)] = nn.Conv2d(in_channels=no_outputs_ch[i-1], 
+                                                              out_channels=atrous_layers_4_out_channels, 
+                                                              kernel_size=3, dilation=4, padding=4)
+
+                self.atrous_conv_layers_5[str(i)] = nn.Conv2d(in_channels=no_outputs_ch[i-1], 
+                                                              out_channels=atrous_layers_5_out_channels, 
+                                                              kernel_size=3, dilation=5, padding=5)
 
 
-                self.max_min_expan_layers[str(i)]= nn.Conv2d(2,out_channels=max_mean_layer_outchannels,kernel_size=1)
+
+
+
+
+                self.max_min_expan_layers[str(i)]= nn.Conv2d(2,out_channels=mean_max_out_channels,kernel_size=1)
 
 
 

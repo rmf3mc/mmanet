@@ -55,7 +55,7 @@ case $ARG in
 
  
     4)
-        $BASE_CMD       --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 1.00  $Training_MC
+        $BASE_CMD    --fsds    --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 2.00 --unet $Training_MC
         ;;
     
  

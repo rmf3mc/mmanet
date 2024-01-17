@@ -1,0 +1,74 @@
+wandb_version: 1
+
+learning_rate:
+  desc: null
+  value: 0.02
+backbone_class:
+  desc: null
+  value: densenet161
+dataset:
+  desc: null
+  value: soybean_2_1
+Max epochs:
+  desc: null
+  value: 200
+Segmentation Training:
+  desc: null
+  value: true
+Classification Training:
+  desc: null
+  value: false
+freeze_all:
+  desc: null
+  value: true
+manet:
+  desc: null
+  value: false
+mmanet:
+  desc: null
+  value: true
+maskguided:
+  desc: null
+  value: false
+unet:
+  desc: null
+  value: false
+deform_expan:
+  desc: null
+  value: 1.0
+fsds:
+  desc: null
+  value: false
+local_train:
+  desc: null
+  value: 1
+_wandb:
+  desc: null
+  value:
+    python_version: 3.10.5
+    cli_version: 0.16.2
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1705456053.653071
+    t:
+      1:
+      - 1
+      - 41
+      - 55
+      2:
+      - 1
+      - 41
+      - 55
+      3:
+      - 16
+      - 19
+      - 23
+      4: 3.10.5
+      5: 0.16.2
+      8:
+      - 5
+      13: linux-x86_64
+model_no_paras:
+  desc: null
+  value: 83.695671

@@ -1,0 +1,13 @@
+Batch_size 32
+MANet False
+MMANet False
+mask_guided False
+seg_included False
+cls_included False
+freeze_all False
+Full-scale Deep Supervision False
+Unet False
+deform_expan 3
+Current Working Directory: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches_AMP/
+folder_path soy_densenet161_Original
+File path: /home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches_AMP/soybean_2_1-results-seg-cls/3PlusUnet/densenet161/soy_densenet161_Original/16:16-17-01-2024/Accuracies_Iou.txt

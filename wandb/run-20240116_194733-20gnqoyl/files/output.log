@@ -1,0 +1,117 @@
+Batch_size 8
+MANet False
+MMANet True
+mask_guided False
+seg_included True
+cls_included False
+freeze_all True
+Full-scale Deep Supervision False
+Unet False
+deform_expan 1.0
+Initialized datatset with 800 images.
+Initialized datatset with 400 images.
+3.2295312881469727
+self.seg_included: True
+last 2208
+freeze layers:
+**********************************
+12
+0 torch.Size([1, 96, 112, 112])
+1 torch.Size([1, 96, 112, 112])
+2 torch.Size([1, 96, 112, 112])
+3 torch.Size([1, 96, 56, 56])
+4 torch.Size([1, 384, 56, 56])
+5 torch.Size([1, 192, 28, 28])
+6 torch.Size([1, 768, 28, 28])
+7 torch.Size([1, 384, 14, 14])
+8 torch.Size([1, 2112, 14, 14])
+9 torch.Size([1, 1056, 7, 7])
+10 torch.Size([1, 2208, 7, 7])
+11 torch.Size([1, 2208, 7, 7])
+************************
+Down sample at [0, 3, 5, 7, 9]
+Number of out channels [96, 384, 768, 2112, 2208]
+From_Layer:0 to_Layer:2
+From_Layer:3 to_Layer:4
+From_Layer:5 to_Layer:6
+From_Layer:7 to_Layer:8
+From_Layer:9 to_End
+********************
+Loading weights
+model.seg_included True
+model.MMANet True
+model.MANet False
+Total parameters in the model: 83.695671
+Epoch: 0
+Acc: 100.000% (800/800)| CE: 0.0018| Total Loss: 0.2049| IoU :0.9029
+Acc: 36.250% (145/400)| CE: 3.0603|  Total Loss: 0.1529| IoU :0.0000
+cur_iou:4.581582658288834e-12,best_iou:4.581582658288834e-12:
+curr_Acc:36.25,best_Acc:36.25:
+Saving..
+Best Testing IoU Based On the Training:4.581582658288834e-12
+Best Testing Accuracy Based On the Training:36.25
+Time Elapsed:72.95205497741699
+Epoch: 1
+Acc: 100.000% (800/800)| CE: 0.0019| Total Loss: 4696.3343| IoU :2.7703
+Acc: 36.250% (145/400)| CE: 3.0603|  Total Loss: 14895.1291| IoU :0.4919
+cur_iou:0.49189586157656096,best_iou:0.49189586157656096:
+curr_Acc:36.25,best_Acc:36.25:
+Saving..
+Best Testing IoU Based On the Training:0.49189586157656096
+Best Testing Accuracy Based On the Training:36.25
+Time Elapsed:69.03491353988647
+Epoch: 2
+Acc: 100.000% (800/800)| CE: 0.0019| Total Loss: 30276149.9847| IoU :2.6514
+Acc: 36.250% (145/400)| CE: 3.0603|  Total Loss: 223805586.0800| IoU :0.6913
+cur_iou:0.6912662475762823,best_iou:0.6912662475762823:
+curr_Acc:36.25,best_Acc:36.25:
+Best Testing IoU Based On the Training:0.49189586157656096
+Best Testing Accuracy Based On the Training:36.25
+Time Elapsed:69.00998830795288
+Epoch: 3
+Acc: 100.000% (800/800)| CE: 0.0019| Total Loss: 1138326729349597.0000| IoU :2.5760
+Acc: 36.250% (145/400)| CE: 3.0603|  Total Loss: 24944907181694648.0000| IoU :3.2503
+cur_iou:3.2502687457026527,best_iou:3.2502687457026527:
+curr_Acc:36.25,best_Acc:36.25:
+Best Testing IoU Based On the Training:0.49189586157656096
+Best Testing Accuracy Based On the Training:36.25
+Time Elapsed:69.11323642730713
+Epoch: 4
+Acc: 100.000% (800/800)| CE: 0.0018| Total Loss: 54080740773952790528.0000| IoU :2.6935
+Acc: 36.250% (145/400)| CE: 3.0603|  Total Loss: 939863619583147900928.0000| IoU :4.4052
+cur_iou:4.405192218022421,best_iou:4.405192218022421:
+curr_Acc:36.25,best_Acc:36.25:
+Best Testing IoU Based On the Training:0.49189586157656096
+Best Testing Accuracy Based On the Training:36.25
+Time Elapsed:69.02742338180542
+Epoch: 5
+Traceback (most recent call last):
+  File "/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/Train.py", line 679, in <module>
+    iou,train_acc,train_ce_loss= train_epoch_Seg(epoch)
+  File "/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/Train.py", line 373, in train_epoch_Seg
+    outputs = net(inputs)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torch/nn/parallel/data_parallel.py", line 166, in forward
+    return self.module(*inputs[0], **kwargs[0])
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/backboneModels.py", line 234, in forward
+    Encoder_outputs = self.get_encoder_ops(x)
+  File "/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/backboneModels.py", line 248, in get_encoder_ops
+    x = self.Encoders[str(i)](x)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torch/nn/modules/container.py", line 139, in forward
+    input = module(input)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torchvision/models/densenet.py", line 123, in forward
+    new_features = layer(features)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torchvision/models/densenet.py", line 89, in forward
+    bottleneck_output = self.bn_function(prev_features)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torchvision/models/densenet.py", line 49, in bn_function
+    concated_features = torch.cat(inputs, 1)
+KeyboardInterrupt

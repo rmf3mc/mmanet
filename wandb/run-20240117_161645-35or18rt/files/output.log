@@ -1,0 +1,36 @@
+Batch_size 32
+MANet False
+MMANet False
+mask_guided False
+seg_included False
+cls_included False
+freeze_all False
+Full-scale Deep Supervision False
+Unet False
+deform_expan 3
+self.seg_included: False
+last 2208
+freeze layers:
+Freeze layers up to 9s layer
+model.seg_included False
+model.MMANet False
+model.MANet False
+Total parameters in the model: 26.913802
+[2024-01-17 16:17:58] [32mConfig is not provided. Will try to infer.
+[2024-01-17 16:17:58] [32mUsing execution engine based on training service. Trial concurrency is set to 1.
+[2024-01-17 16:17:58] [32mUsing simplified model format.
+[2024-01-17 16:17:58] [32mUsing local training service.
+[2024-01-17 16:17:58] [33mWARNING: GPU found but will not be used. Please set `experiment.config.trial_gpu_number` to the number of GPUs you want to use for each trial.
+[2024-01-17 16:17:58] [32mCreating experiment, Experiment ID: [36mfb9gx3n7
+[2024-01-17 16:17:58] [32mStarting web server...
+[2024-01-17 16:17:59] [33mWARNING: Timeout, retry...
+[2024-01-17 16:18:00] [33mWARNING: Timeout, retry...
+[2024-01-17 16:18:01] [32mSetting up...
+[2024-01-17 16:18:02] [32mWeb portal URLs: [36mhttp://127.0.0.1:8081 http://10.14.1.13:8081 http://172.17.0.1:8081
+[2024-01-17 16:18:02] [32mSuccessfully update searchSpace.
+[2024-01-17 16:18:02] [32mCheckpoint saved to /home/pupil/rmf3mc/nni-experiments/fb9gx3n7/checkpoint.
+[2024-01-17 16:18:02] [32mExperiment initialized successfully. Starting exploration strategy...
+[2024-01-17 16:18:02] [31mERROR: Strategy failed to execute.
+[2024-01-17 16:18:45] [32mStopping experiment, please wait...
+[2024-01-17 16:18:45] [32mCheckpoint saved to /home/pupil/rmf3mc/nni-experiments/fb9gx3n7/checkpoint.
+[2024-01-17 16:18:45] [32mExperiment stopped
