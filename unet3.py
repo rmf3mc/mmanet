@@ -83,26 +83,26 @@ def get_segmentation(decoder_layers,Encoder_outputs,Conv_Encoder_5):
     #print('Conv_Encoder_5.shape',Conv_Encoder_5.shape)
     
     i=5
-    decoder_output_5= decoder_layers[str(i)](Encoder_outputs[i-1],Conv_Encoder_5)
+    decoder_output_5= decoder_layers[str(i)](Encoder_outputs,Conv_Encoder_5,i)
     #print('decoder_output_5.shape',decoder_output_5.shape)
     
     #print(Encoder_outputs[3].shape,decoder_output_5.shape)
     i=4
-    decoder_output_4= decoder_layers[str(i)](Encoder_outputs[i-1],decoder_output_5) 
+    decoder_output_4= decoder_layers[str(i)](Encoder_outputs,decoder_output_5,i) 
               
     #print('decoder_output_4.shape',decoder_output_4.shape)
     
     i=3
-    decoder_output_3= decoder_layers[str(i)](Encoder_outputs[i-1],decoder_output_4)
+    decoder_output_3= decoder_layers[str(i)](Encoder_outputs,decoder_output_4,i)
     #print('decoder_output_3.shape',decoder_output_3.shape)
     
     i=2
-    decoder_output_2= decoder_layers[str(i)](Encoder_outputs[i-1],decoder_output_3) 
+    decoder_output_2= decoder_layers[str(i)](Encoder_outputs,decoder_output_3,i) 
               
     #print('decoder_output_2.shape',decoder_output_2.shape)
     
     i=1
-    Final_seg= decoder_layers[str(i)](Encoder_outputs[i-1],decoder_output_2)
+    Final_seg= decoder_layers[str(i)](Encoder_outputs,decoder_output_2,i)
     #print('Final_seg',Final_seg.shape)
     
     return Final_seg,decoder_output_2,decoder_output_3,decoder_output_4,decoder_output_5
