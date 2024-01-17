@@ -247,9 +247,9 @@ class MMANET(nn.Module):
         for i in range(1,6):
             x = self.Encoders[str(i)](x)
 
-            fg_att=self.atten_layers[str(i)](torch.cat((torch.mean(x,dim=1).unsqueeze(1),torch.max(x,dim=1)[0].unsqueeze(1)),dim=1))
-            fg_att=torch.sigmoid(fg_att)
-            features=self.getAttFeats(fg_att,x)
+            # fg_att=self.atten_layers[str(i)](torch.cat((torch.mean(x,dim=1).unsqueeze(1),torch.max(x,dim=1)[0].unsqueeze(1)),dim=1))
+            # fg_att=torch.sigmoid(fg_att)
+            features= x #self.getAttFeats(fg_att,x)
 
             # mean_max=torch.cat((torch.mean(x,dim=1).unsqueeze(1),torch.max(x,dim=1)[0].unsqueeze(1)),dim=1)
         

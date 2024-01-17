@@ -41,21 +41,21 @@ BASE_CMD="python -u Train.py --mmanet --max_epoch 200"
 case $ARG in
 
     1)
-        $BASE_CMD              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model  --deform_expan 1.00 --unet $Training_MC
+        $BASE_CMD              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model  --deform_expan 1.50 --unet $Training_MC
         ;;
 
  
     2)
-        $BASE_CMD    --fsds    --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 1.00 --unet $Training_MC
+        $BASE_CMD    --fsds    --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 1.50 --unet $Training_MC
         ;;
 
     3)
-        $BASE_CMD              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model  --deform_expan 1.00  $Training_MC
+        $BASE_CMD              --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model  --deform_expan 2.00 --unet $Training_MC
         ;;
 
  
     4)
-        $BASE_CMD    --fsds    --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 2.00 --unet $Training_MC
+        $BASE_CMD       --seg_ild --freeze_all --dataparallel $DATA_DIR      --backbone_class  $model  $Base_model   --deform_expan 1.00  $Training_MC
         ;;
     
  
