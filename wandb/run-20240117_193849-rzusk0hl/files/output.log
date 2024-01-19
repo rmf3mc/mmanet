@@ -1,0 +1,70 @@
+Batch_size 8
+MANet False
+MMANet True
+mask_guided False
+seg_included True
+cls_included False
+freeze_all True
+Full-scale Deep Supervision False
+Unet True
+deform_expan 1.5
+Initialized datatset with 800 images.
+Initialized datatset with 400 images.
+2.8235979080200195
+self.seg_included: True
+last 2208
+freeze layers:
+**********************************
+12
+0 torch.Size([1, 96, 112, 112])
+1 torch.Size([1, 96, 112, 112])
+2 torch.Size([1, 96, 112, 112])
+3 torch.Size([1, 96, 56, 56])
+4 torch.Size([1, 384, 56, 56])
+5 torch.Size([1, 192, 28, 28])
+6 torch.Size([1, 768, 28, 28])
+7 torch.Size([1, 384, 14, 14])
+8 torch.Size([1, 2112, 14, 14])
+9 torch.Size([1, 1056, 7, 7])
+10 torch.Size([1, 2208, 7, 7])
+11 torch.Size([1, 2208, 7, 7])
+************************
+Down sample at [0, 3, 5, 7, 9]
+Number of out channels [96, 384, 768, 2112, 2208]
+From_Layer:0 to_Layer:2
+From_Layer:3 to_Layer:4
+From_Layer:5 to_Layer:6
+From_Layer:7 to_Layer:8
+From_Layer:9 to_End
+********************
+Loading weights
+model.seg_included True
+model.MMANet True
+model.MANet False
+Total parameters in the model: 26.913802
+[2024-01-17 19:38:56] [32mConfig is not provided. Will try to infer.
+[2024-01-17 19:38:56] [32mUsing execution engine based on training service. Trial concurrency is set to 1.
+[2024-01-17 19:38:56] [32mUsing simplified model format.
+[2024-01-17 19:38:56] [32mUsing local training service.
+[2024-01-17 19:38:56] [33mWARNING: GPU found but will not be used. Please set `experiment.config.trial_gpu_number` to the number of GPUs you want to use for each trial.
+[2024-01-17 19:38:56] [32mCreating experiment, Experiment ID: [36mprqnfw14
+[2024-01-17 19:38:56] [32mStarting web server...
+[2024-01-17 19:38:57] [32mSetting up...
+[2024-01-17 19:38:57] [32mWeb portal URLs: [36mhttp://127.0.0.1:8081 http://10.14.1.13:8081 http://172.17.0.1:8081
+[2024-01-17 19:38:57] [32mStopping experiment, please wait...
+[2024-01-17 19:38:57] [32mCheckpoint saved to /home/pupil/rmf3mc/nni-experiments/prqnfw14/checkpoint.
+Traceback (most recent call last):
+  File "/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/Train.py", line 723, in <module>
+    exp.run(port=8081)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/nni/experiment/experiment.py", line 236, in run
+    return self._run_impl(port, wait_completion, debug)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/nni/experiment/experiment.py", line 205, in _run_impl
+    self.start(port, debug)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/nni/nas/experiment/experiment.py", line 270, in start
+    self._start_engine_and_strategy()
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/nni/nas/experiment/experiment.py", line 216, in _start_engine_and_strategy
+    self._exec_model_space = self.executable_model_factory(config.model_format)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/nni/nas/experiment/experiment.py", line 158, in executable_model_factory
+    raise TypeError('Model space must inherit ModelSpace and also be a PyTorch model.')
+TypeError: Model space must inherit ModelSpace and also be a PyTorch model.
+[2024-01-17 19:38:57] [32mExperiment stopped

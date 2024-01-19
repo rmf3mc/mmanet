@@ -1,0 +1,57 @@
+Batch_size 8
+MANet False
+MMANet True
+mask_guided False
+seg_included True
+cls_included False
+freeze_all True
+Full-scale Deep Supervision False
+Unet True
+deform_expan 1.5
+Initialized datatset with 800 images.
+Initialized datatset with 400 images.
+2.890068292617798
+self.seg_included: True
+last 2208
+freeze layers:
+**********************************
+12
+0 torch.Size([1, 96, 112, 112])
+1 torch.Size([1, 96, 112, 112])
+2 torch.Size([1, 96, 112, 112])
+3 torch.Size([1, 96, 56, 56])
+4 torch.Size([1, 384, 56, 56])
+5 torch.Size([1, 192, 28, 28])
+6 torch.Size([1, 768, 28, 28])
+7 torch.Size([1, 384, 14, 14])
+8 torch.Size([1, 2112, 14, 14])
+9 torch.Size([1, 1056, 7, 7])
+10 torch.Size([1, 2208, 7, 7])
+11 torch.Size([1, 2208, 7, 7])
+************************
+Down sample at [0, 3, 5, 7, 9]
+Number of out channels [96, 384, 768, 2112, 2208]
+From_Layer:0 to_Layer:2
+From_Layer:3 to_Layer:4
+From_Layer:5 to_Layer:6
+From_Layer:7 to_Layer:8
+From_Layer:9 to_End
+********************
+Haaa
+((((((deconv_layers_3_out_channels + deconv_layers_5_out_channels) + deconv_layers_7_out_channels) + atrous_layers_2_out_channels) + atrous_layers_3_out_channels) + atrous_layers_4_out_channels) + atrous_layers_5_out_channels) + mean_max_out_channels
+Traceback (most recent call last):
+  File "/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/Train.py", line 273, in <module>
+    model=MyModelSpace(backbone_name=model_name,num_classes=num_classes,MANet=MANet,MMANet=MMANet,mask_guided=mask_guided,seg_included=seg_ild,freeze_all=freeze_all,Unet=args.unet,deform_expan=args.deform_expan)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/nni/nas/nn/pytorch/base.py", line 458, in new_init
+    return init_with_context(self, *args, **kwargs)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/nni/nas/nn/pytorch/base.py", line 440, in init_with_context
+    return original_init_fn(self, *args, **kwargs)
+  File "/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/MyModelSpace.py", line 166, in __init__
+    self.deconv_layers_3[str(i)] = Deform_Conv(in_channels=no_outputs_ch[i-1],
+  File "/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches/MyModelSpace.py", line 346, in __init__
+    self.deform_conv = DeformConv2d(in_channels, out_channels, kernel_size=kernel_size, padding=padding)
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/torchvision/ops/deform_conv.py", line 131, in __init__
+    if out_channels % groups != 0:
+  File "/home/pupil/rmf3mc/.conda/envs/UnetCRF2/lib/python3.10/site-packages/nni/mutable/symbol.py", line 375, in __bool__
+    raise RuntimeError('Cannot use bool() on SymbolicExpression. That means, using SymbolicExpression in a if-clause is illegal. '
+RuntimeError: Cannot use bool() on SymbolicExpression. That means, using SymbolicExpression in a if-clause is illegal. Please try methods like `SymbolicExpression.max(a, b)` to see whether that meets your needs.

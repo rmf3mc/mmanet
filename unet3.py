@@ -182,40 +182,7 @@ class UNetDecoderLayerModule2(nn.Module):
         return out
         
 
-class UNetDecoderLayerModule3(nn.Module):
-    def __init__(self, lvl,no_channels,nni_number_channels,no_classes=1):
-        super(UNetDecoderLayerModule3, self).__init__()
-        self.layers= nn.ModuleDict()
-        in_channels=no_channels[lvl-1]#*2
-        if lvl==1:
-            out_channels=no_channels[lvl-1]
-        else:
-            out_channels=no_channels[lvl-2]
-            
-        print('out_channels',out_channels)
 
-        if lvl !=1:
-            self.layers[str(1)]=nn.Sequential(
-                                MutableConv2d(in_channels=int(in_channels*(1)+nni_number_channels), out_channels=out_channels, kernel_size=3, padding=1),
-                                nn.ReLU(inplace=True),
-                                nn.Conv2d(out_channels, out_channels=out_channels, kernel_size=3, padding=1),
-                                nn.ReLU(inplace=True),
-                                nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
-                                )
-        else:
-            self.layers[str(1)]=nn.Sequential(
-                        MutableConv2d(in_channels=int(in_channels*(1)+nni_number_channels), out_channels=out_channels, kernel_size=3, padding=1),
-                        nn.ReLU(inplace=True),
-                        nn.Conv2d(out_channels, out_channels=out_channels, kernel_size=3, padding=1),
-                        nn.ReLU(inplace=True),
-                        nn.Conv2d(out_channels, out_channels=no_classes, kernel_size=3, padding=1),
-                        )
-            
-        
-    def forward (self,Enc_output,next_decoder_layer_output):
-        concat=torch.cat([Enc_output, next_decoder_layer_output], 1)
-        out=self.layers[str(1)](concat)
-        return out
 
 
 

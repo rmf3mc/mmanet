@@ -4,7 +4,7 @@
 # In[1]:
 
 
-print('**Code Starting**')
+print('**Code Starting Optunaaaaaaaaaaa**')
 
 import torch
 import torch.nn as nn
@@ -29,18 +29,13 @@ from leafvein2 import Leafvein
 from backboneModels import *
 from utils import *
 
-from MyModelSpace import MyModelSpace
+import optuna
+from optuna.trial import TrialState
 
 print('**End of Importing**')
 
 
 # In[ ]:
-
-
-
-
-
-# In[2]:
 
 
 ## reproducility
@@ -54,7 +49,7 @@ torch.cuda.manual_seed_all(seed)
 cudnn.benchmark = False 
 
 
-# In[3]:
+# In[2]:
 
 
 test_acc=[]
@@ -65,7 +60,7 @@ train_iou=[]
 test_iou=[]
 
 
-# In[4]:
+# In[12]:
 
 
 import argparse
@@ -124,24 +119,18 @@ print('Device:',device)
 
 
 batchsize = args.batch_size
-
-
 MANet=args.manet
 MMANet=args.mmanet
 mask_guided=args.maskguided
-
 seg_ild=args.seg_ild
 cls_ild=args.cls_ild
 freeze_all=args.freeze_all
-
 num_classes=args.num_classes
-
 model_name=args.backbone_class
-
 start_epoch=0
 
 
-# In[11]:
+# In[4]:
 
 
 if args.local_train==1:
@@ -149,8 +138,6 @@ if args.local_train==1:
     current_working_directory = '/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches_AMP/'
 else:
     current_working_directory = '/mnt/mywork/all_backbones/'
-    
-current_working_directory = '/home/pupil/rmf3mc/Documents/ModelProposing/MGANet/FinalTouches_AMP/'
 print("Current Working Directory:", current_working_directory)
 
 name=get_folder_path(args)
@@ -194,142 +181,70 @@ if not os.path.exists(models_folder):
     os.makedirs(models_folder)
 
 
-# In[12]:
+# In[ ]:
 
 
-import wandb
-
-run=wandb.init(
-    # set the wandb project where this run will be logged
-    project="icip24-nniexperiment",
-    entity="ramytrm",
-    group=name,
-    
-    # track hyperparameters and run metadata
-    config={
-    "learning_rate": args.lr,
-    "backbone_class": args.backbone_class,
-    "dataset": args.dataset,
-    "Max epochs": args.max_epoch,
-    "Segmentation Training":args.seg_ild,
-    "Classification Training":args.cls_ild,
-    "freeze_all": args.freeze_all,
-    "manet": args.manet,
-    "mmanet": args.mmanet,
-    "maskguided": args.maskguided,
-    "unet": args.unet,
-    "deform_expan": args.deform_expan,
-    "fsds": args.fsds,
-    "local_train": args.local_train
-    }
-)
-
-
-# In[13]:
-
-
-print('\nBatch_size',args.batch_size)
-
-print('MANet',MANet)
-print('MMANet',MMANet)
-print('mask_guided',mask_guided)
-
-print('seg_included',seg_ild)
-print('cls_included',cls_ild)
-
-print('freeze_all',freeze_all)
-print('Full-scale Deep Supervision',args.fsds)
-print('Unet',args.unet)
-print('deform_expan',args.deform_expan)
-
-
-# In[15]:
-
-
-start=time.time()
 train = Leafvein(args,crop=[448,448],hflip=True,vflip=False,erase=False,mode='train')
 test = Leafvein(args,crop=[448,448],mode='test')
-end=time.time()
-print(end-start)
+model_path= f'{current_working_directory}/checkpoint/{name}_{formatted_datetime}.pth'
 
 
-# In[16]:
+# In[ ]:
 
-
-import nni.nas.strategy as strategy
-search_strategy = strategy.Random()
-
-
-# In[17]:
-
-
-trainloader = DataLoader(train, batch_size=batchsize, shuffle=True)
-testloader = DataLoader(test, batch_size=batchsize, shuffle=False)
-
-
-# In[19]:
-
-
-model=MyModelSpace(backbone_name=model_name,num_classes=num_classes,MANet=MANet,MMANet=MMANet,mask_guided=mask_guided,seg_included=seg_ild,freeze_all=freeze_all,Unet=args.unet,deform_expan=args.deform_expan)
-
-
-if args.model_path is not None:
-    print('Loading weights')
-    model_path= args.model_path
-    model_dict = torch.load(model_path)
-    state_dict = model_dict['net'] 
-    model.load_state_dict(state_dict, strict=False)
-else:
-    model_path= f'{current_working_directory}/checkpoint/{name}_{formatted_datetime}.pth'
-
-    
-print('model.seg_included',model.seg_included)
-print('model.MMANet',model.MMANet)
-print('model.MANet',model.MANet)    
-
-
-
-net=model.to(device)
-
-if device == 'cuda' and args.dataparallel:
-    net = torch.nn.DataParallel(net)
-
-if args.seg_ild:
-    model_path= f'{current_working_directory}/checkpoint/{name}-Segmentation-{formatted_datetime}.pth'
-
-
-# In[20]:
-
-
-total_params = sum(p.numel() for p in model.parameters())
-print(f"Total parameters in the model: {total_params/1e+6}")
-run.config.model_no_paras=total_params/1e+6
-
-
-with open(accuracy_file_path, 'a') as f:
-    f.write(f'\n ***************************Start******************************** \n')
-    for arg in vars(args):
-        f.write(f"{arg}: {getattr(args, arg)}  \n")
-    f.write(f"Total parameters in the model: {total_params/1e+6}")
-
-
-# In[21]:
-
-
-alpha1,alpha2,alpha3,alpha4,alpha5=0.95, 0.1/4, 0.1/8, 0.1/16, 0.1/32
 
 class_loss_fn = nn.CrossEntropyLoss()
 seg_loss_fn   = nn.BCEWithLogitsLoss()
-mse = nn.MSELoss()
 
 
+# In[ ]:
 
 
-optimizer = optim.SGD(net.parameters(), lr=args.lr, momentum=0.9, weight_decay=5e-4)
-scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.max_epoch)
+best_iou=0
+best_acc=0
+
+train_best_iou=0
+best_test_iou=0
+
+min_loss=1e10
+test_acc=0
+Best_test_acc_BOT=0
+
+def objective(trial):
+    start = time.time()
+    # Generate the model.
+    model=MMANET(trial,num_classes=num_classes,MANet=MANet,MMANet=MMANet,mask_guided=mask_guided,seg_included=seg_ild,freeze_all=freeze_all,Unet=args.unet,deform_expan=args.deform_expan)
+    model=model.to(device)
+    model = torch.nn.DataParallel(model)
+    
+    
+    optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=0.9, weight_decay=5e-4)
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.max_epoch)
+    # Get the dataset.
+    train_loader = DataLoader(train, batch_size=batchsize, shuffle=True)
+    valid_loader = DataLoader(test, batch_size=batchsize, shuffle=False)
+    
+    
+
+    # Training of the model.
+    for epoch in range(EPOCHS):
+        start = time.time()        
+        iou,train_acc,train_ce_loss= train_epoch_Seg(epoch)
+        curr_test_iou,test_acc,test_ce_loss=test_epoch_Seg(epoch)
+        scheduler.step()
+        end = time.time()
+
+        print(f'Epoch:{epoch}, Elapsed Time:{end-start}')
+
+        trial.report(curr_test_iou, epoch)
+
+        # Handle pruning based on the intermediate value.
+        if trial.should_prune():
+            raise optuna.exceptions.TrialPruned()
+
+    return curr_test_iou
 
 
-# In[22]:
+# In[ ]:
 
 
 input_size = [args.seg_size, args.seg_size]
@@ -339,12 +254,9 @@ def train_epoch_Seg(epoch):
     print('\nEpoch: %d' % epoch)
     
     global new_size
-    with open(accuracy_file_path, 'a') as f:
-        f.write(f'\n Epoch:{epoch}\n')
-
+   
     
-    
-    net.train()
+    model.train()
     if freeze_all and not(cls_ild):
     
         for name, module in net.module.features.named_modules():
@@ -392,33 +304,12 @@ def train_epoch_Seg(epoch):
             iou = iou_binary(preds, masks)
             averageIoU+=iou
 
-            if args.fsds:
-
-
-                lvl_2_loss = seg_loss_fn(outputs['decoder_layer_2'],masks)
-
-                fsds_size = [size // 2 for size in new_size]
-                masks = F.interpolate(masks, size=fsds_size, mode='bilinear', align_corners=False)
-                lvl_3_loss = seg_loss_fn(outputs['decoder_layer_3'],masks)
-
-                fsds_size = [size // 2 for size in fsds_size]
-                masks = F.interpolate(masks, size=fsds_size, mode='bilinear', align_corners=False)
-                lvl_4_loss = seg_loss_fn(outputs['decoder_layer_4'],masks)
-
-                fsds_size = [size // 2 for size in fsds_size]
-                masks = F.interpolate(masks, size=fsds_size, mode='bilinear', align_corners=False)
-                lvl_5_loss = seg_loss_fn(outputs['decoder_layer_5'],masks)
-                se_loss_= alpha1*se_loss_+ alpha2*lvl_2_loss+ alpha3*lvl_3_loss+ alpha4*lvl_4_loss + alpha5*lvl_5_loss
-
-
 
             out=outputs['out']
             ce_loss_ = class_loss_fn(out, targets)
 
             loss =  seg_ild*se_loss_ + cls_ild*ce_loss_+ mask_guided*0.1*mse_loss_
-
-            
-            
+        
             loss.backward()
             optimizer.step()
         
@@ -444,19 +335,13 @@ def train_epoch_Seg(epoch):
     accuracy=100.*correct/total
     
     print(f'Acc: {accuracy:.3f}% ({correct}/{total})| CE: {train_ce_loss:.4f}| Total Loss: {train_loss:.4f}| IoU :{averageIoU:.4f}')
-    with open(accuracy_file_path, 'a') as f:
-        f.write(f'Acc: {accuracy:.3f}% ({correct}/{total})| CE: {train_ce_loss:.4f}| Total Loss: {train_loss:.4f}| IoU :{averageIoU:.4f}\n')
-
     
-    wandb.log({"Current Training Epoch": epoch,
-               "Training IoU": averageIoU,
-               "Training Accuracy":accuracy},step=epoch)
     train_total_losses.append(train_loss)
     train_iou.append(averageIoU)
     return averageIoU,accuracy,train_ce_loss
 
 
-# In[23]:
+# In[ ]:
 
 
 def test_epoch_Seg(epoch):
@@ -498,26 +383,6 @@ def test_epoch_Seg(epoch):
                 iou = iou_binary(preds, masks)
                 averageIoU+=iou
                 
-                                    
-                if args.fsds:
-                    
-                    
-                    lvl_2_loss = seg_loss_fn(outputs['decoder_layer_2'],masks)
-
-                    fsds_size = [size // 2 for size in new_size]
-                    masks = F.interpolate(masks, size=fsds_size, mode='bilinear', align_corners=False)
-                    lvl_3_loss = seg_loss_fn(outputs['decoder_layer_3'],masks)
-
-                    fsds_size = [size // 2 for size in fsds_size]
-                    masks = F.interpolate(masks, size=fsds_size, mode='bilinear', align_corners=False)
-                    lvl_4_loss = seg_loss_fn(outputs['decoder_layer_4'],masks)
-
-                    fsds_size = [size // 2 for size in fsds_size]
-                    masks = F.interpolate(masks, size=fsds_size, mode='bilinear', align_corners=False)
-                    lvl_5_loss = seg_loss_fn(outputs['decoder_layer_5'],masks)
-                    se_loss_= alpha1*se_loss_+ alpha2*lvl_2_loss+ alpha3*lvl_3_loss+ alpha4*lvl_4_loss + alpha5*lvl_5_loss
-
-
             out=outputs['out']
             ce_loss_ = class_loss_fn(out, targets)
 
@@ -558,201 +423,191 @@ def test_epoch_Seg(epoch):
     print(f'Acc: {accuracy:.3f}% ({correct}/{total})| CE: {test_ce_loss:.4f}|  Total Loss: {test_loss:.4f}| IoU :{averageIoU:.4f}')
     print('cur_iou:{0},best_iou:{1}:'.format(averageIoU,best_iou))
     print('curr_Acc:{0},best_Acc:{1}:'.format(accuracy,best_acc))
-    
-    
-    with open(accuracy_file_path, 'a') as f:
-        f.write(f'Acc: {accuracy:.3f}% ({correct}/{total})| CE: {test_ce_loss:.4f}| Total Loss: {test_loss:.4f}| IoU :{averageIoU:.4f}\n')
-        f.write(f'cur_iou:{averageIoU},best_iou:{best_iou}\n')
-        f.write(f'curr_Acc:{accuracy},best_Acc:{best_acc}\n')
-        
-    wandb.log({"Testing Epoch": epoch,
-               "Current Testing IoU": averageIoU,
-               "Overall Best Testing Iou":best_iou,
-               "Current Testing Accuracy":accuracy,
-               "Best Testing Accuracy": best_acc},step=epoch)
-
-        
-
-        
-        
+             
 
     return averageIoU,accuracy,test_ce_loss
-
-
-# In[24]:
-
-
-def check_seg_performance(iou,curr_test_iou,test_acc,net,epoch,end,start,model_path,accuracy_file_path):
-    global train_best_iou,best_test_iou,Best_test_acc_BOT
-    if iou>train_best_iou:
-        print('Saving..')
-        train_best_iou=iou
-        best_test_iou=curr_test_iou
-        Best_test_acc_BOT=test_acc
-        if isinstance(net, torch.nn.DataParallel):
-            net_wrap = net.module
-        else:
-            net_wrap=net
-        state = {'net': net_wrap.state_dict(), 'test_iou': best_test_iou, 'Test_acc': test_acc , 'epoch': epoch,}
-        torch.save(state, model_path)
-    print(f'Best Testing IoU Based On the Training:{best_test_iou}')
-    print(f'Best Testing Accuracy Based On the Training:{Best_test_acc_BOT}')
-    print(f'Time Elapsed:{end-start}\n')    
-    with open(accuracy_file_path, 'a') as f:
-        f.write(f'Best Testing IoU Based On the Training:{best_test_iou}\n')
-        f.write(f'Best Testing Accuracy Based On the Training:{Best_test_acc_BOT}\n')
-        f.write(f'Time Elapsed:{end-start}\n')
-        
-    wandb.log({"Best Testing IoU BOT": best_test_iou,
-               "Best Testing Accuracy BOT":Best_test_acc_BOT,
-               "Elapsed Time":end-start},step=epoch)
-    
-
-
-            
-def check_class_performance(train_ce_loss, test_acc, curr_test_iou,net, epoch, model_path, accuracy_file_path, start, end):    
-    global min_loss, Best_test_acc_BOT, best_test_iou
-    if train_ce_loss<min_loss:
-        print('Saving..')
-        min_loss=train_ce_loss
-        Best_test_acc_BOT=test_acc
-        best_test_iou=curr_test_iou
-        if isinstance(net, torch.nn.DataParallel):
-            net_nwrap = net.module
-        else:
-            net_nwrap=net
-        state = {'net': net_nwrap.state_dict(), 'test_iou': curr_test_iou, 'Test_acc': test_acc, 'epoch': epoch,}
-        torch.save(state, model_path)
-    
-    print(f'Best Testing IoU Based On the Training:{best_test_iou}')
-    print(f'Best Testing Accuracy Based On the Training:{Best_test_acc_BOT}')
-    print(f'Time Elapsed:{end-start}\n')    
-    with open(accuracy_file_path, 'a') as f:
-        f.write(f'Best Testing IoU Based On the Training:{best_test_iou}\n')
-        f.write(f'Best Testing Accuracy Based On the Training:{Best_test_acc_BOT}\n')
-        f.write(f'Time Elapsed:{end-start}\n')
-        
-    
-
-    
-def check_performance(iou, curr_test_iou, train_ce_loss, test_acc, net, epoch, model_path, accuracy_file_path, start, end):
-    global train_best_iou, best_test_iou, Best_test_acc_BOT, min_loss
-    updated = False
-    # Check for segment performance improvement
-    if iou > train_best_iou:
-        print('Saving based on segment performance improvement..')
-        train_best_iou = iou
-        best_test_iou = curr_test_iou
-        Best_test_acc_BOT = test_acc
-        updated = True
-
-    # Check for class performance improvement
-    if train_ce_loss < min_loss:
-        print('Saving based on class performance improvement..')
-        min_loss = train_ce_loss
-        Best_test_acc_BOT = test_acc
-        best_test_iou = curr_test_iou
-        updated = True
-
-    # Save the model if there was an update
-    if updated:
-        if isinstance(net, torch.nn.DataParallel):
-            net_nwrap = net.module
-        else:
-            net_nwrap = net
-        state = {'net': net_nwrap.state_dict(),'test_iou': curr_test_iou,'test_acc': test_acc,'epoch': epoch,}
-        torch.save(state, model_path)
-        
-    print(f'Best Testing IoU Based On the Training:{best_test_iou}')
-    print(f'Best Testing Accuracy Based On the Training:{Best_test_acc_BOT}')
-    print(f'Time Elapsed:{end-start}\n')    
-    with open(accuracy_file_path, 'a') as f:
-        f.write(f'Best Testing IoU Based On the Training:{best_test_iou}\n')
-        f.write(f'Best Testing Accuracy Based On the Training:{Best_test_acc_BOT}\n')
-        f.write(f'Time Elapsed:{end-start}\n')
-
-
-# In[25]:
-
-
-best_iou=0
-best_acc=0
-
-train_best_iou=0
-best_test_iou=0
-
-min_loss=1e10
-test_acc=0
-Best_test_acc_BOT=0
-
-def evaluate_model(model=net):
-    for epoch in range(start_epoch, args.max_epoch):
-        start = time.time()
-        iou,train_acc,train_ce_loss= train_epoch_Seg(epoch)
-        curr_test_iou,test_acc,test_ce_loss=test_epoch_Seg(epoch)
-        scheduler.step()
-        end = time.time()
-
-        if seg_ild and not (cls_ild):
-            check_seg_performance(iou,curr_test_iou,test_acc,net,epoch,end,start,model_path,accuracy_file_path) 
-        elif not(seg_ild) and cls_ild:
-            check_class_performance(train_ce_loss, test_acc, curr_test_iou,net, epoch, model_path, accuracy_file_path, start, end)
-        else:
-            check_performance(iou, curr_test_iou, train_ce_loss, test_acc, net, epoch, model_path, accuracy_file_path, start, end)
-        nni.report_intermediate_result(best_test_iou)
-
-    nni.report_intermediate_result(best_test_iou)
-
-
-# In[26]:
-
-
-from nni.nas.evaluator import FunctionalEvaluator
-evaluator = FunctionalEvaluator(evaluate_model)
-
-
-# In[27]:
-
-
-from nni.nas.experiment import NasExperiment
-exp = NasExperiment(net, evaluator, search_strategy)
-
-exp.config.trial_gpu_number = 1
-exp.config.training_service.use_active_gpu = True
-
-exp.run(port=8081)
 
 
 # In[ ]:
 
 
-run.finish()
+study = optuna.create_study(direction="maximize")
+study.optimize(objective, n_trials=100, timeout=600)
 
-all_results_file =os.path.join(current_working_directory,train_type,args.backbone_class,'all_results_file.txt')
+pruned_trials = study.get_trials(deepcopy=False, states=[TrialState.PRUNED])
+complete_trials = study.get_trials(deepcopy=False, states=[TrialState.COMPLETE])
+
+
+# In[ ]:
+
+
+print("Study statistics: ")
+print("  Number of finished trials: ", len(study.trials))
+print("  Number of pruned trials: ", len(pruned_trials))
+print("  Number of complete trials: ", len(complete_trials))
+
+print("Best trial:")
+trial = study.best_trial
+
+print("  Value: ", trial.value)
+
+print("  Params: ")
+for key, value in trial.params.items():
+    print("    {}: {}".format(key, value))
+
+
+# In[ ]:
+
+
+# best_iou=0
+# best_acc=0
+
+# train_best_iou=0
+# best_test_iou=0
+
+# min_loss=1e10
+# test_acc=0
+# Best_test_acc_BOT=0
+
+# for epoch in range(start_epoch, args.max_epoch):
+#     start = time.time()
+#     iou,train_acc,train_ce_loss= train_epoch_Seg(epoch)
+#     curr_test_iou,test_acc,test_ce_loss=test_epoch_Seg(epoch)
+#     scheduler.step()
+#     end = time.time()
+    
+#     if seg_ild and not (cls_ild):
+#         check_seg_performance(iou,curr_test_iou,test_acc,net,epoch,end,start,model_path,accuracy_file_path) 
+#     elif not(seg_ild) and cls_ild:
+#         check_class_performance(train_ce_loss, test_acc, curr_test_iou,net, epoch, model_path, accuracy_file_path, start, end)
+#     else:
+#         check_performance(iou, curr_test_iou, train_ce_loss, test_acc, net, epoch, model_path, accuracy_file_path, start, end)
+        
+        
+
+
+# In[ ]:
+
+
+# def check_seg_performance(iou,curr_test_iou,test_acc,net,epoch,end,start,model_path,accuracy_file_path):
+#     global train_best_iou,best_test_iou,Best_test_acc_BOT
+#     if iou>train_best_iou:
+#         print('Saving..')
+#         train_best_iou=iou
+#         best_test_iou=curr_test_iou
+#         Best_test_acc_BOT=test_acc
+#         if isinstance(net, torch.nn.DataParallel):
+#             net_wrap = net.module
+#         else:
+#             net_wrap=net
+#         state = {'net': net_wrap.state_dict(), 'test_iou': best_test_iou, 'Test_acc': test_acc , 'epoch': epoch,}
+#         torch.save(state, model_path)
+#     print(f'Best Testing IoU Based On the Training:{best_test_iou}')
+#     print(f'Best Testing Accuracy Based On the Training:{Best_test_acc_BOT}')
+#     print(f'Time Elapsed:{end-start}\n')    
+#     with open(accuracy_file_path, 'a') as f:
+#         f.write(f'Best Testing IoU Based On the Training:{best_test_iou}\n')
+#         f.write(f'Best Testing Accuracy Based On the Training:{Best_test_acc_BOT}\n')
+#         f.write(f'Time Elapsed:{end-start}\n')
+        
+#     wandb.log({"Best Testing IoU BOT": best_test_iou,
+#                "Best Testing Accuracy BOT":Best_test_acc_BOT,
+#                "Elapsed Time":end-start},step=epoch)
+
+
+            
+# def check_class_performance(train_ce_loss, test_acc, curr_test_iou,net, epoch, model_path, accuracy_file_path, start, end):    
+#     global min_loss, Best_test_acc_BOT, best_test_iou
+#     if train_ce_loss<min_loss:
+#         print('Saving..')
+#         min_loss=train_ce_loss
+#         Best_test_acc_BOT=test_acc
+#         best_test_iou=curr_test_iou
+#         if isinstance(net, torch.nn.DataParallel):
+#             net_nwrap = net.module
+#         else:
+#             net_nwrap=net
+#         state = {'net': net_nwrap.state_dict(), 'test_iou': curr_test_iou, 'Test_acc': test_acc, 'epoch': epoch,}
+#         torch.save(state, model_path)
+    
+#     print(f'Best Testing IoU Based On the Training:{best_test_iou}')
+#     print(f'Best Testing Accuracy Based On the Training:{Best_test_acc_BOT}')
+#     print(f'Time Elapsed:{end-start}\n')    
+#     with open(accuracy_file_path, 'a') as f:
+#         f.write(f'Best Testing IoU Based On the Training:{best_test_iou}\n')
+#         f.write(f'Best Testing Accuracy Based On the Training:{Best_test_acc_BOT}\n')
+#         f.write(f'Time Elapsed:{end-start}\n')
+        
+    
+
+    
+# def check_performance(iou, curr_test_iou, train_ce_loss, test_acc, net, epoch, model_path, accuracy_file_path, start, end):
+#     global train_best_iou, best_test_iou, Best_test_acc_BOT, min_loss
+#     updated = False
+#     # Check for segment performance improvement
+#     if iou > train_best_iou:
+#         print('Saving based on segment performance improvement..')
+#         train_best_iou = iou
+#         best_test_iou = curr_test_iou
+#         Best_test_acc_BOT = test_acc
+#         updated = True
+
+#     # Check for class performance improvement
+#     if train_ce_loss < min_loss:
+#         print('Saving based on class performance improvement..')
+#         min_loss = train_ce_loss
+#         Best_test_acc_BOT = test_acc
+#         best_test_iou = curr_test_iou
+#         updated = True
+
+#     # Save the model if there was an update
+#     if updated:
+#         if isinstance(net, torch.nn.DataParallel):
+#             net_nwrap = net.module
+#         else:
+#             net_nwrap = net
+#         state = {'net': net_nwrap.state_dict(),'test_iou': curr_test_iou,'test_acc': test_acc,'epoch': epoch,}
+#         torch.save(state, model_path)
+        
+#     print(f'Best Testing IoU Based On the Training:{best_test_iou}')
+#     print(f'Best Testing Accuracy Based On the Training:{Best_test_acc_BOT}')
+#     print(f'Time Elapsed:{end-start}\n')    
+#     with open(accuracy_file_path, 'a') as f:
+#         f.write(f'Best Testing IoU Based On the Training:{best_test_iou}\n')
+#         f.write(f'Best Testing Accuracy Based On the Training:{Best_test_acc_BOT}\n')
+#         f.write(f'Time Elapsed:{end-start}\n')
+
+
+# In[ ]:
+
+
+# run.finish()
+
+# all_results_file =os.path.join(current_working_directory,train_type,args.backbone_class,'all_results_file.txt')
 
 
 
-from filelock import Timeout, FileLock
-lock = FileLock(all_results_file[:-4]+'.lock', timeout=120)  # Timeout after two minutes
-try:
-    with lock:
-        with open(all_results_file, 'a') as file:
-            file.write(f'\n*************************************************************\n')
-            file.write(f"**{name} 's Testing Accuracies**\n")
-            file.write(f'***Total parameters in the model: {total_params/1e+6}***\n')            
-            file.write(f'*****{formatted_datetime} Time*****\n')
-            file.write('********Training IOU\n')
-            file.write(f'Training IOU:{iou}\n')
-            file.write(f'Best Training IOU:{train_best_iou}\n')
-            file.write('********Testing IOU\n')
-            file.write(f'The overall Very Best Testing IOU :{best_iou}\n')
-            file.write(f'Best Testing IoU Based On the Training:{best_test_iou}\n')
-            file.write('********\n')
-            file.write('Training Acc*****\n')
-            file.write(f'Training Loss:{train_ce_loss}\n')
-            file.write(f'Best Testing Accuracy Based On the Training:{Best_test_acc_BOT}\n')
-            file.write(f'The overall Very Best Testing Accuracy :{best_acc}\n')
-            file.write(f'*************************************************************\n\n')
-except Timeout:
-    print("Could not acquire the lock within 120 seconds.")
+# from filelock import Timeout, FileLock
+# lock = FileLock(all_results_file[:-4]+'.lock', timeout=120)  # Timeout after two minutes
+# try:
+#     with lock:
+#         with open(all_results_file, 'a') as file:
+#             file.write(f'\n*************************************************************\n')
+#             file.write(f"**{name} 's Testing Accuracies**\n")
+#             file.write(f'***Total parameters in the model: {total_params/1e+6}***\n')            
+#             file.write(f'*****{formatted_datetime} Time*****\n')
+#             file.write('********Training IOU\n')
+#             file.write(f'Training IOU:{iou}\n')
+#             file.write(f'Best Training IOU:{train_best_iou}\n')
+#             file.write('********Testing IOU\n')
+#             file.write(f'The overall Very Best Testing IOU :{best_iou}\n')
+#             file.write(f'Best Testing IoU Based On the Training:{best_test_iou}\n')
+#             file.write('********\n')
+#             file.write('Training Acc*****\n')
+#             file.write(f'Training Loss:{train_ce_loss}\n')
+#             file.write(f'Best Testing Accuracy Based On the Training:{Best_test_acc_BOT}\n')
+#             file.write(f'The overall Very Best Testing Accuracy :{best_acc}\n')
+#             file.write(f'*************************************************************\n\n')
+# except Timeout:
+#     print("Could not acquire the lock within 120 seconds.")
 
